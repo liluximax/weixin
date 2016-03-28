@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MyFirstServlet.iml" filepath="$PROJECT_DIR$/MyFirstServlet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RemoteSystemsTempFiles.iml" filepath="$PROJECT_DIR$/RemoteSystemsTempFiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Weixin.iml" filepath="$PROJECT_DIR$/Weixin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jeeweixin.iml" filepath="$PROJECT_DIR$/jeeweixin.iml" />
+    </modules>
+  </component>
+</project>
