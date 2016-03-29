@@ -104,7 +104,7 @@
                 var lat = point.lat;
 
                 var form = 
-                "<form action='do.jsp' method='post'>"
+                "<form action='domap.jsp' method='post'>"
                 +"<input id='lng' name='lng' type='hidden'>"
                 +"<input id='lat' name='lat' type='hidden'>"
                 +"<input id='id' name='id' type='hidden'>"
@@ -113,25 +113,21 @@
                 +"<input type='submit' align='center' value='跳转'>"
                 +"</form>";
                 
-                var sContent = "<p id='info'></p>"+form;
+                var sContent = "<div id='info'></div>"+form;
                 var infoWindow = new BMap.InfoWindow(sContent);
                 marker.addEventListener("click", function () {
                     map.openInfoWindow(infoWindow,data.points[0]);
-                    //document.getElementById("info").innerHTML = "名字: "+name+"<br>"+" 地址:"+adress;
                     document.getElementById("info").innerHTML = "名字: "+name+"<br>"+" 坐标:" + lng +","+lat;
                     document.getElementById("lng").value = lng.toFixed(3);
                     document.getElementById("lat").value = lat.toFixed(3);
                     document.getElementById("id").value = id;
                     document.getElementById("name").value = name;
                     document.getElementById("adress").value = adress;
-//                    map.removeOverlay(marker);
                 });
-
-
                 map.addOverlay(marker);
             }
         }
-        
+    	
         var convertor = new BMap.Convertor();
         var pointArr = [];
         pointArr.push(point);
@@ -149,7 +145,7 @@
         var lat = point.lat;
 
         var form = 
-        "<form action='do.jsp' method='post'>"
+        "<form action='domap.jsp' method='post'>"
         +"<input id='lng' name='lng' type='hidden'>"
         +"<input id='lat' name='lat' type='hidden'>"
         +"<input id='id' name='id' type='hidden'>"
@@ -158,11 +154,10 @@
         +"<input type='submit' align='center' value='跳转'>"
         +"</form>";
         
-        var sContent = "<p id='info'></p>"+form;
+        var sContent = "<div id='info'></div>"+form;
         var infoWindow = new BMap.InfoWindow(sContent);
         marker.addEventListener("click", function () {
             map.openInfoWindow(infoWindow,point);
-            //document.getElementById("info").innerHTML = "名字: "+name+"<br>"+" 地址:"+adress;
             document.getElementById("info").innerHTML = "名字: "+name+"<br>"+" 坐标:" + lng +","+lat;
             document.getElementById("lng").value = lng.toFixed(3);
             document.getElementById("lat").value = lat.toFixed(3);

@@ -12,18 +12,50 @@
 	<script type="text/javascript" src="../jquery-2.2.1.min.js"></script>
 	<title>点击油站地理位置</title>
 </head>
+
 <body>
 	<div id = "allmap"></div>
 </body>
 
 <script type="text/javascript">
  	var map = new BMap.Map("allmap");
-	var lat = '<%=request.getParameter("lat")%>';
-	var lng = '<%=request.getParameter("lng")%>';
+	<%
+	request.setCharacterEncoding("utf-8");
+	response.setContentType("text/html;charset=utf-8");
+	%>
+ 	var lat = '<%=request.getParameter("lat") %>';
+ 	var lng = '<%=request.getParameter("lng") %>';
+ 	var name = '<%=request.getParameter("name") %>';
+ 	var adress = '<%=request.getParameter("adress") %>';
+ 	var id = '<%=request.getParameter("id") %>';
+ 	
 	var point = new BMap.Point(lat, lng);
     map.centerAndZoom(point, 15);
     var myIcon = new BMap.Icon("/Weixin/image/jiayouzhan.png",new BMap.Size(30,30));
     var marker = new BMap.Marker(point,{icon:myIcon});
+    
+    var form = 
+        "<form action='domap.jsp' method='post'>"
+        +"<input id='lng' name='lng' type='hidden'>"
+        +"<input id='lat' name='lat' type='hidden'>"
+        +"<input id='id' name='id' type='hidden'>"
+        +"<input id='name' name='name' type='hidden'>"
+        +"<input id='adress' name='adress' type='hidden'>"
+        +"<input type='submit' align='center' value='跳转'>"
+        +"</form>";
+        
+        var sContent = "<div id='info'></div>"+form;
+        var infoWindow = new BMap.InfoWindow(sContent);
+        marker.addEventListener("click", function () {
+            map.openInfoWindow(infoWindow,point);
+            document.getElementById("info").innerHTML = "名字: "+name+"<br>"+" 坐标:" + lng +","+lat;
+            document.getElementById("lng").value = lng;
+            document.getElementById("lat").value = lat;
+            document.getElementById("id").value = id;
+            document.getElementById("name").value = name;
+            document.getElementById("adress").value = adress;
+        });
+    
     map.addOverlay(marker);
 </script>
 

@@ -11,13 +11,12 @@
 <body>
 	<div>
 		<p id="city">定位城市:</p>
-		<form action="ditu.jsp">
+		<form action="map.jsp">
 			<input type="submit" value="地图">
 		</form>
 	</div>
 	<div id="list"></div>
 </body>
-
 	<script type="text/javascript">
     function myFun(result){
         var cityName = result.name;
@@ -38,7 +37,15 @@
 				var lat_content = $("<li>"+lat+"</li>");
         		var lng_content = $("<li>"+lng+"</li>");
         		var id_content = $("<li>"+id+"</li>");
-        		var name_content =$("<a href='dolist.jsp?lat="+lat+"&lng="+lng+"'>"+name+"</a>");
+                var name_content = 
+                    $("<form action='dolist.jsp' method='post'>"
+                    +"<input id='lng' name='lng' type='hidden' value="+lng+">"
+                    +"<input id='lat' name='lat' type='hidden' value="+lat+">"
+                    +"<input id='id' name='id' type='hidden' value="+id+">"
+                    +"<input id='name' name='name' type='hidden' value="+name+">"
+                    +"<input id='adress' name='adress' type='hidden' value="+adress+">"
+                    +"<input type='submit' align='center' value="+name+">"
+                    +"</form>");
         		var adress_content = $("<li>地址:"+adress+"</li>");
         		var tel = $("<li>联系电话:</li>");
         		
