@@ -33,14 +33,14 @@ public class WeixinTest {
 		/**
 		 * 创建菜单
 		 */
-//		String menu = JSONObject.fromObject(WeixinUtil.initMenu()).toString();
-//		int result = WeixinUtil.creatMenu(token.getToken(), menu);
-//		if(result == 0){
-//			System.out.println("菜单创建成功");
-//		}
-//		else{
-//			System.out.println("错误码是: " + result);
-//		}
+		String menu = JSONObject.fromObject(WeixinUtil.initMenu2()).toString();
+		int result = WeixinUtil.creatMenu(token.getToken(), menu);
+		if(result == 0){
+			System.out.println("菜单创建成功");
+		}
+		else{
+			System.out.println("错误码是: " + result);
+		}
 		
 		/**
 		 * 查询菜单

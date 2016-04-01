@@ -265,6 +265,24 @@ public class WeixinUtil {
 		return menu;
 	}
 	
+	public static Menu initMenu2(){
+		Menu menu = new Menu();
+		
+		ViewButton button1 = new ViewButton();
+		button1.setName("列表");
+		button1.setType("view");
+		button1.setUrl("http://115.29.51.206/Weixin/station/list.jsp");
+		
+		ViewButton button2 = new ViewButton();
+		button2.setName("地图");
+		button2.setType("view");
+		button2.setUrl("http://115.29.51.206/Weixin/station/list.jsp");
+		
+		menu.setButton(new Button[]{button1, button2});
+		
+		return menu;
+	}
+	
 	public static int creatMenu(String token, String menu){
 		int result = 0;
 		String url = CREATE_MENU_URL.replace("ACCESS_TOKEN", token);
