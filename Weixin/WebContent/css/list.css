@@ -1,0 +1,31 @@
+body{font-size: 90%}
+.list{font-size: 100%}
+li{list-style-type: none}
+.adress{font-weight: bold}
+.distance{color: red}
+.cityName{font-weight: bold}
+.tel{font-weight: bold}
+.name{border-style: none;
+	  background-color: white;
+	  font-size: 105%;
+	  color: #6FAA18;
+	  outline: none;
+	  -webkit-appearance: none;
+	  font-weight: bold;
+	  text-align:left}
+.map{border-style: none;
+    background-color: white;
+    font-size: 112%;
+    color: blueviolet;
+    outline: none;
+    font-weight: bold;
+    -webkit-appearance: none;
+    }
+.map_locate{
+    float: right;
+}
+hr{
+    background-color: #dddddd;
+    height: 0.8px;
+    border: none;
+}
