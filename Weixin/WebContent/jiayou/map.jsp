@@ -41,7 +41,7 @@
     function myFun(result){
         var cityName = result.name;
         $("#p").append(cityName + ",");
-        var url = "/Weixin/com/baidu/util/Jason";
+        var url = "/Weixin/spring/changeJson.do";
         //在传参数前一定要对城市名，进行utf-8转码。
         //下面的方法，在后台仍然打印不出中文，但是功能不影响
         $.getJSON(url, {city:encodeURI(cityName,"utf-8")}, function(data){
