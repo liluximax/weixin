@@ -14,11 +14,25 @@
 	    <form action="map.jsp">
 	        <span class="city">定位城市:</span>
 	        <span class="cityName"></span>
+	        <span><img style="height: 8%; width: 8%; float: right" src=""></span>
 	    </form>
 	</div>
 	<hr>
 	<div class="list"></div>
 </body>
+
+<script type="text/javascript">
+	var code = '<%=request.getParameter("code") %>';
+	var state = '<%=request.getParameter("state") %>';
+	var url = "/Weixin/userinfo/getuserinfo.do";
+	$.getJSON(url,{"code":code, "state":state},function(data){
+		var nickname = data.nickname;
+		var headimgurl = data.headimgurl;
+		var openid = data.openid;
+		$("img").attr("src",headimgurl);
+	});
+</script>
+
 <script type="text/javascript">
     function myFun(result){
     	var lat = 0;
@@ -30,7 +44,7 @@
     	    if(this.getStatus() == BMAP_STATUS_SUCCESS){
     	    	lng = r.point.lng;
     	    	lat = r.point.lat;
-    	        var url = "/Weixin/spring/calculate.do";
+    	        var url = "/Weixin/station/calculate.do";
     	        //在传参数前一定要对城市名，进行utf-8转码。
     	        //下面的方法，在后台仍然打印不出中文，但是功能不影响
     	        $.getJSON(url, {city:encodeURI(cityName,"utf-8"), "lng":lng, "lat":lat}, function(data){

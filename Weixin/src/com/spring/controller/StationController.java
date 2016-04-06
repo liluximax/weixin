@@ -16,8 +16,8 @@ import com.weixin.util.WeixinUtil;
 import net.sf.json.JSON;
 
 @Controller
-@RequestMapping("spring")
-public class UserController {
+@RequestMapping("station")
+public class StationController {
 	
 	@Autowired
 	private GetDistance calculate;

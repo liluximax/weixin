@@ -21,12 +21,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+
 import com.weixin.model.menu.Button;
 import com.weixin.model.menu.ClikButton;
 import com.weixin.model.menu.Menu;
 import com.weixin.model.menu.ViewButton;
 import com.weixin.model.token.AccessToken;
-
 
 
 public class WeixinUtil {
@@ -46,6 +46,8 @@ public class WeixinUtil {
 	private static final String CREATE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 	
 	private static final String QUREY_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN";
+	
+	private static final String SNSAPI_USERINFO_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
 	
 	public static JSONObject doGetStr(String url){
 		DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -264,21 +266,35 @@ public class WeixinUtil {
 		
 		return menu;
 	}
-	
+	/**
+	 * 带用户授权的微信菜单
+	 * @return
+	 */
 	public static Menu initMenu2(){
 		Menu menu = new Menu();
 		
 		ViewButton button1 = new ViewButton();
-		button1.setName("列表");
+		button1.setName("油站");
 		button1.setType("view");
-		button1.setUrl("http://115.29.51.206/Weixin/station/list.jsp");
+		String url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+										.replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fjiayou%2flist.jsp")
+										.replace("SCOPE", "snsapi_userinfo");
+		button1.setUrl(url);
 		
 		ViewButton button2 = new ViewButton();
 		button2.setName("地图");
 		button2.setType("view");
-		button2.setUrl("http://115.29.51.206/Weixin/station/list.jsp");
+		button2.setUrl("http://115.29.51.206/Weixin/jiayou/map.jsp");
 		
-		menu.setButton(new Button[]{button1, button2});
+		ViewButton button3 = new ViewButton();
+		button3.setName("userinfo授权");
+		button3.setType("view");
+		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+								 .replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fadd.jsp")
+								 .replace("SCOPE", "snsapi_userinfo");
+		button3.setUrl(url);
+		
+		menu.setButton(new Button[]{button1, button2, button3});
 		
 		return menu;
 	}
