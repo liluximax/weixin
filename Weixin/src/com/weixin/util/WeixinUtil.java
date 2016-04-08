@@ -271,26 +271,62 @@ public class WeixinUtil {
 	 * @return
 	 */
 	public static Menu initMenu2(){
+		
+		String url = "";
+		
 		Menu menu = new Menu();
 		
-		ViewButton button1 = new ViewButton();
-		button1.setName("油站");
-		button1.setType("view");
-		String url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
-										.replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fjiayou%2flist.jsp")
-										.replace("SCOPE", "snsapi_userinfo");
-		button1.setUrl(url);
+		ViewButton button11 = new ViewButton();
+		button11.setName("列表");
+		button11.setType("view");
+		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fjiayou%2flist.jsp")
+								 .replace("SCOPE", "snsapi_userinfo");
+		System.out.println(url);
+		button11.setUrl(url);
 		
-		ViewButton button2 = new ViewButton();
-		button2.setName("地图");
-		button2.setType("view");
-		button2.setUrl("http://115.29.51.206/Weixin/jiayou/map.jsp");
+		ViewButton button12 = new ViewButton();
+		button12.setName("地图");
+		button12.setType("view");
+//		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+//								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fjiayou%2fmap.jsp")
+//								 .replace("SCOPE", "snsapi_userinfo");
+		button12.setUrl("http://wxoa.u-coupon.cn/Weixin/jiayou/map.jsp");
+		
+		Button button1 = new Button();
+		button1.setName("coupon");
+		button1.setType("click");
+		button1.setSub_button(new Button[]{button11, button12});
+		
+		
+		ViewButton button21 = new ViewButton();
+		button21.setName("列表");
+		button21.setType("view");
+		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+								 .replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fjiayou%2flist.jsp")
+								 .replace("SCOPE", "snsapi_userinfo");
+		System.out.println(url);
+		button21.setUrl(url);
+		
+		ViewButton button22 = new ViewButton();
+		button22.setName("地图");
+		button22.setType("view");
+//		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+//								 .replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fjiayou%2fmap.jsp")
+//								 .replace("SCOPE", "snsapi_userinfo");
+		button22.setUrl("http://115.29.51.206/Weixin/jiayou/map.jsp");
+		
+		Button button2 = new Button();
+		button2.setName("ali");
+		button2.setType("click");
+		button2.setSub_button(new Button[]{button21, button22});
+		
 		
 		ViewButton button3 = new ViewButton();
 		button3.setName("userinfo授权");
 		button3.setType("view");
 		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
-								 .replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fadd.jsp")
+								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fadd.jsp")
 								 .replace("SCOPE", "snsapi_userinfo");
 		button3.setUrl(url);
 		

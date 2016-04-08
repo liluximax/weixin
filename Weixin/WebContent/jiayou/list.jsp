@@ -12,7 +12,7 @@
 <body>
 	<div>
 	    <form action="map.jsp">
-	        <span class="city">定位城市:</span>
+	        <span class="city">当前城市:</span>
 	        <span class="cityName"></span>
 	        <span><img style="height: 8%; width: 8%; float: right" src=""></span>
 	    </form>
@@ -77,7 +77,7 @@
     	        		var tel = $("<li class='tel'>联系电话:</li>");
     	        		var distance_content = $("<li class='adress'>距您约<span class='distance'>"+distance+"</span>公里</li>");
     	        		
-    	        		$(".list").append(id_content).append(name_content).append(adress_content).append(tel).append(distance_content).append("</ul><hr>");
+    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul><hr>");
     	        		
     	        	})
     	        })

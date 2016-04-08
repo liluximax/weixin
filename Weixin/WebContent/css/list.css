@@ -10,9 +10,14 @@ li{list-style-type: none}
 	  font-size: 105%;
 	  color: #6FAA18;
 	  outline: none;
-	  -webkit-appearance: none;
+	  
+	  /*下面这条清楚safri的默认input效果*/
+ 	  -webkit-appearance: none;
+	  
 	  font-weight: bold;
-	  text-align:left}
+ 	  padding-left: 0px;
+      padding-right: 0px;
+      }
 .map{border-style: none;
     background-color: white;
     font-size: 112%;

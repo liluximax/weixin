@@ -88,7 +88,7 @@
         		var adress_content = $("<li><span class='adress'>地址:</span>"+adress+"</li>");
         		var tel = $("<li class='tel'>联系电话:</li>");
         		
-        		$(".list").append(id_content).append(name_content).append(adress_content).append(tel).append("</ul><hr>");
+        		$(".list")append(name_content).append(adress_content)append("</ul><hr>");
         		
         	})
         })
