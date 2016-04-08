@@ -198,14 +198,18 @@ a{
 
 <script type="text/javascript">
 	var code = '<%=request.getParameter("code") %>';
-	var state = '<%=request.getParameter("state") %>';
-	var url = "/Weixin/userinfo/getuserinfo.do";
-	$.getJSON(url,{"code":code, "state":state},function(data){
-		var nickname = data.nickname;
-		var headimgurl = data.headimgurl;
-		var openid = data.openid;
-		$("img").attr("src",headimgurl);
-	});
+	if(code != null){
+		var state = '<%=request.getParameter("state") %>';
+		var url = "/Weixin/userinfo/getuserinfo.do";
+		$.getJSON(url,{"code":code, "state":state},function(data){
+			var nickname = data.nickname;
+			var headimgurl = data.headimgurl;
+			var openid = data.openid;
+			$("img").attr("src",headimgurl);
+		});
+	}
+	var headimgurl = '<%=session.getAttribute("imageurl") %>';
+	$("img").attr("src",headimgurl);
 </script>
 <%--
   

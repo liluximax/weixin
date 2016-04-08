@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,8 @@ public class UserInfoController {
 	@RequestMapping(value="getuserinfo")
 	public void getCode(@RequestParam("code") String _code, 
 						@RequestParam(value = "state", required = false) String _state,
-						HttpServletResponse response) throws IOException{
+						HttpServletResponse response,
+						HttpSession session) throws IOException{
 		String code = _code;
 		String state = _state;
 		/**
@@ -52,6 +54,10 @@ public class UserInfoController {
 		 */
 		String user_info_url = USER_INFO_URL.replace("ACCESS_TOKEN", access_token).replace("OPENID", openid);
 		JSON userInfo = WeixinUtil.doGetStr(user_info_url);
+		JSONObject userInfoObj = JSONObject.fromObject(userInfo);
+		String image = userInfoObj.getString("headimgurl");
+		System.out.println(image);
+		session.setAttribute("imageurl", image);
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(userInfo);
