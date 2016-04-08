@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baidu.calculate.GetDistance;
-import com.baidu.model.Location;
 import com.weixin.util.WeixinUtil;
 import net.sf.json.JSON;
 
@@ -61,4 +60,12 @@ public class StationController {
 		System.out.println(lng+","+lat+" "+lng_loc+","+lat_loc);
 	}
 	
+	@RequestMapping("city")
+	public void getCityList(HttpServletResponse response) throws IOException{
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String url = "http://app1.u-coupon.cn:8000/weixin/get_city_list.php";
+		JSON cityData = WeixinUtil.doGetStr(url);
+		out.print(cityData);
+	}
 }

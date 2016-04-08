@@ -37,7 +37,7 @@
 	        var mk = new BMap.Marker(r.point);
 	        map.addOverlay(mk);
 	        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
-	        map.panTo(r.point);
+	        /* map.panTo(r.point); */
 	 		$("#p").append(" 经度: "+ r.point.lng +" 纬度: "+ r.point.lat);
 	    }
 	    else {
@@ -76,6 +76,7 @@
                 document.getElementById("adress").value = adress;
             });
             map.addOverlay(marker);
+            map.panTo(data.points[0]);
         }
     }
     var convertor = new BMap.Convertor();
