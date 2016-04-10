@@ -35,9 +35,9 @@ public class WeixinUtil {
 	/**
 	 * 测试账号
 	 */
-	private static final String APPID = "wxefdf75446a6bedc4";
-	
-	private static final String APPSECRET = "1305e7a3a69400ac17f96bef78e2d1e6";
+//	private static final String APPID = "wxefdf75446a6bedc4";
+//	
+//	private static final String APPSECRET = "1305e7a3a69400ac17f96bef78e2d1e6";
 	
 	private static final String ACCESS_TOKEN_URL ="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	
@@ -88,7 +88,7 @@ public class WeixinUtil {
 	 */
 	public static AccessToken getAccessToken(){
 		AccessToken token = new AccessToken();
-		String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
+		String url = ACCESS_TOKEN_URL.replace("APPID",DeveloperId.APPID).replace("APPSECRET", DeveloperId.APPSECRET);
 		JSONObject jsonObject = doGetStr(url);
 		if(jsonObject != null){
 			token.setToken(jsonObject.getString("access_token"));
@@ -279,7 +279,7 @@ public class WeixinUtil {
 		ViewButton button11 = new ViewButton();
 		button11.setName("列表");
 		button11.setType("view");
-		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+		url = SNSAPI_USERINFO_URL.replace("APPID", DeveloperId.APPID)
 								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fjiayou%2flist.jsp")
 								 .replace("SCOPE", "snsapi_userinfo");
 		System.out.println(url);
@@ -302,7 +302,7 @@ public class WeixinUtil {
 		ViewButton button21 = new ViewButton();
 		button21.setName("列表");
 		button21.setType("view");
-		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+		url = SNSAPI_USERINFO_URL.replace("APPID", DeveloperId.APPID)
 								 .replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fjiayou%2flist.jsp")
 								 .replace("SCOPE", "snsapi_userinfo");
 		System.out.println(url);
@@ -325,7 +325,7 @@ public class WeixinUtil {
 		ViewButton button3 = new ViewButton();
 		button3.setName("userinfo授权");
 		button3.setType("view");
-		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
+		url = SNSAPI_USERINFO_URL.replace("APPID", DeveloperId.APPID)
 								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fadd.jsp")
 								 .replace("SCOPE", "snsapi_userinfo");
 		button3.setUrl(url);

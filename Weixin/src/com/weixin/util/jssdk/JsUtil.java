@@ -8,15 +8,16 @@ import java.util.UUID;
 import com.weixin.model.token.AccessToken;
 import com.weixin.model.token.JsApiTicket;
 import com.weixin.model.token.JsSignature;
+import com.weixin.util.DeveloperId;
 import com.weixin.util.WeixinUtil;
 
 import net.sf.json.JSONObject;
 
 public class JsUtil {
 	
-	private static final String APPID = "wxefdf75446a6bedc4";
-	
-	private static final String APPSECRET = "1305e7a3a69400ac17f96bef78e2d1e6";
+//	private static final String APPID = "wxefdf75446a6bedc4";
+//	
+//	private static final String APPSECRET = "1305e7a3a69400ac17f96bef78e2d1e6";
 	
 	private static final String ACCESS_TOKEN_URL ="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	
@@ -24,7 +25,7 @@ public class JsUtil {
 	
 	public static AccessToken getAccessToken(){
 		AccessToken token = new AccessToken();
-		String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
+		String url = ACCESS_TOKEN_URL.replace("APPID", DeveloperId.APPID).replace("APPSECRET", DeveloperId.APPSECRET);
 		JSONObject jsonObject = WeixinUtil.doGetStr(url);
 		if(jsonObject != null){
 			token.setToken(jsonObject.getString("access_token"));
