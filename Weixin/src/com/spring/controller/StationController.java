@@ -43,13 +43,16 @@ public class StationController {
 	}
 	
 	@RequestMapping("calculate")
-	public void doCalculate(
+	public void doCalculate(@RequestParam(value = "city", required = false) String city,
 							@RequestParam("lng") String lng, 
 							@RequestParam("lat") String lat,
 							HttpServletResponse response) throws IOException{
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String city = GetCityByLocate.getCityByLoc(lng, lat);
+		System.out.println("calculate controller中收到数据"+city+","+","+lng+","+lat);
+		if(city == null){
+			city = GetCityByLocate.getCityByLoc(lng, lat);
+		}
 		JSON data = calculate.calDistance(city, lng, lat);
 		out.print(data);
 	}
