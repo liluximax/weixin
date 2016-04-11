@@ -154,7 +154,7 @@ $(".locate").click(
 </script>
 <script type="text/javascript">
 	var code = '<%=request.getParameter("code") %>';
-	if(code != null){
+	if(code != "null"){
 		var state = '<%=request.getParameter("state") %>';
 		var url = "/Weixin/userinfo/getuserinfo.do";
 		$.getJSON(url,{"code":code, "state":state},function(data){
@@ -165,7 +165,9 @@ $(".locate").click(
 		});
 	}
 	var headimgurl = '<%=session.getAttribute("imageurl") %>';
-	$(".headimg").attr("src",headimgurl);
+	if(headimgurl != "null"){
+		$(".headimg").attr("src",headimgurl);
+	}
 </script>
 
 </html>

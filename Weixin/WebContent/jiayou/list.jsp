@@ -68,11 +68,11 @@ a{
 	%>
 	
 	var cityName = '<%=request.getParameter("cityName") %>';
+	var lat = 0;
+	var lng = 0;
 	
 	if(cityName == "null"){
-    	function myFun(result){
-        	var lat = 0;
-        	var lng = 0;
+		function myFun(result){
             cityName = result.name;
             /* alert("百度地图获得的定位城市: "+cityName); */
             /* var cityName = "sde"; */
@@ -183,6 +183,7 @@ a{
     	        	else{
     	        		var no_station = $("<p>当前城市没有合作加油站</p>");
     	        		$(".list").append(no_station);
+    	        		alert("当前城市没有合作加油站");
     	        	}
     	        })
     	 		
@@ -198,7 +199,7 @@ a{
 
 <script type="text/javascript">
 	var code = '<%=request.getParameter("code") %>';
-	if(code != null){
+	if(code != "null"){
 		var state = '<%=request.getParameter("state") %>';
 		var url = "/Weixin/userinfo/getuserinfo.do";
 		$.getJSON(url,{"code":code, "state":state},function(data){
@@ -209,7 +210,9 @@ a{
 		});
 	}
 	var headimgurl = '<%=session.getAttribute("imageurl") %>';
-	$(".headimg").attr("src",headimgurl);
+	if(headimgurl != "null"){
+		$(".headimg").attr("src",headimgurl);
+	}
 </script>
 <%--
   

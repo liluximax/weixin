@@ -27,9 +27,9 @@ public class StationController {
 		response.setContentType("text/html;charset=utf-8");
 		String url = "http://app1.u-coupon.cn:8000/weixin/get_station_list.php?city=city_name";
 		String city = request.getParameter("city");
-		String lng = request.getParameter("lng");
-		String lat = request.getParameter("lat");
-		System.out.println(city+","+lng+","+lat);
+//		String lng = request.getParameter("lng");
+//		String lat = request.getParameter("lat");
+		System.out.println("不带距离的controler得到的数据:"+city);
 		url = url.replace("city_name", city);
 		JSON data = WeixinUtil.doGetStr(url);
 		PrintWriter out = response.getWriter();
