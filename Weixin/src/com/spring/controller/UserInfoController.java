@@ -54,8 +54,8 @@ public class UserInfoController {
 			JSON userInfo = WeixinUtil.doGetStr(user_info_url);
 			JSONObject userInfoObj = JSONObject.fromObject(userInfo);
 			String image = userInfoObj.getString("headimgurl");
-			System.out.println(image);
-			session.setAttribute("UserInfoController中打印的imageurl: ", image);
+			System.out.println("UserInfoController中打印的imageurl: "+image);
+			session.setAttribute("imageurl", image);
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print(userInfo);

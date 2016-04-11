@@ -61,6 +61,7 @@ a{
 </body>
 
 <script type="text/javascript">
+
 	<%
 	request.setCharacterEncoding("utf-8");
 	response.setContentType("text/html;charset=utf-8");
@@ -329,8 +330,8 @@ a{
 
 <script type="text/javascript">
 	var code = '<%=request.getParameter("code") %>';
+	var state = '<%=request.getParameter("state") %>';
 	if(code != "null"){
-		var state = '<%=request.getParameter("state") %>';
 		var url = "/Weixin/userinfo/getuserinfo.do";
 		$.getJSON(url,{"code":code, "state":state},function(data){
 			var nickname = data.nickname;
