@@ -20,14 +20,15 @@
 </head>
 
 <body>
-<div id="container"></div>
-
+<div id="container" style="z-index: 0; position: absolute; left: 0px; right: 0px"></div>
+<input class="locate" type="image" src="http://www.iconpng.com/png/etao-ux-fonts/font-522.png" style="z-index: 1; height: 6%; width: 9%; position: absolute; bottom: 7%; left: 4.5%;">
+<a href="list.jsp"><img src="http://pic.sucaibar.com/pic/201307/12/4746a6b292.png" style="z-index: 1; height: 6%; width: 10%; position: absolute; bottom: 15%; left: 4%;"></a>
 <!-- <div id="self">
     <p id="p2"></p>
     <p id="p"></p>
     <p id="name"></p>
 </div> -->
-
+</body>
 <script type="text/javascript">
     var map = new BMap.Map("container");          // 创建地图实例
     var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
@@ -136,5 +137,35 @@
         convertor.translate(pointArr, 1, 5, translateCallback);
     }
 </script>
-</body>
+<script type="text/javascript">
+$(".locate").click(
+        function(){
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(function(r){
+                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                    map.panTo(r.point);
+                }
+                else {
+                    alert('failed'+this.getStatus());
+                }
+            },{enableHighAccuracy: true})
+        }
+);
+</script>
+<script type="text/javascript">
+	var code = '<%=request.getParameter("code") %>';
+	if(code != null){
+		var state = '<%=request.getParameter("state") %>';
+		var url = "/Weixin/userinfo/getuserinfo.do";
+		$.getJSON(url,{"code":code, "state":state},function(data){
+			var nickname = data.nickname;
+			var headimgurl = data.headimgurl;
+			var openid = data.openid;
+			$(".headimg").attr("src",headimgurl);
+		});
+	}
+	var headimgurl = '<%=session.getAttribute("imageurl") %>';
+	$(".headimg").attr("src",headimgurl);
+</script>
+
 </html>

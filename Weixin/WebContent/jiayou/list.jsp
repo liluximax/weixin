@@ -51,9 +51,9 @@ a{
 <body>
 	<div>
 	    <form action="map.jsp">
-	        <span class="city">当前城市:</span>
-	        <a href="citylist.jsp"><span class="cityName"></span></a>
-	        <span><img style="height: 8%; width: 8%; float: right" src=""></span>
+	        <span class="city">当前城市:<span class="cityName"></span></span>
+	        <a href="citylist.jsp">切换城市</a>
+	        <span><img class="headimg" style="height: 8%; width: 8%; float: right" src=""></span>
 	    </form>
 	</div>
 	<hr>
@@ -205,11 +205,11 @@ a{
 			var nickname = data.nickname;
 			var headimgurl = data.headimgurl;
 			var openid = data.openid;
-			$("img").attr("src",headimgurl);
+			$(".headimg").attr("src",headimgurl);
 		});
 	}
 	var headimgurl = '<%=session.getAttribute("imageurl") %>';
-	$("img").attr("src",headimgurl);
+	$(".headimg").attr("src",headimgurl);
 </script>
 <%--
   

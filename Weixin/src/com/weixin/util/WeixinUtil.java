@@ -288,10 +288,10 @@ public class WeixinUtil {
 		ViewButton button12 = new ViewButton();
 		button12.setName("地图");
 		button12.setType("view");
-//		url = SNSAPI_USERINFO_URL.replace("APPID", APPID)
-//								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fjiayou%2fmap.jsp")
-//								 .replace("SCOPE", "snsapi_userinfo");
-		button12.setUrl("http://wxoa.u-coupon.cn/Weixin/jiayou/map.jsp");
+		url = SNSAPI_USERINFO_URL.replace("APPID", DeveloperId.APPID)
+								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fjiayou%2fmap.jsp")
+								 .replace("SCOPE", "snsapi_userinfo");
+		button12.setUrl(url);
 		
 		Button button1 = new Button();
 		button1.setName("coupon");

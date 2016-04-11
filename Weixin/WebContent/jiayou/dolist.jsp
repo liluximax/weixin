@@ -14,7 +14,9 @@
 </head>
 
 <body>
-	<div id = "allmap"></div>
+	<div id = "allmap" style="z-index: 0; position: absolute; left: 0px; right: 0px"></div>
+	<input class="locate" type="image" src="http://www.iconpng.com/png/etao-ux-fonts/font-522.png" style="z-index: 1; height: 6%; width: 9%; position: absolute; bottom: 7%; left: 4.5%;">
+	<a href="list.jsp"><img src="http://pic.sucaibar.com/pic/201307/12/4746a6b292.png" style="z-index: 1; height: 6%; width: 10%; position: absolute; bottom: 15%; left: 4%;"></a>
 </body>
 
 <script type="text/javascript">
@@ -97,5 +99,19 @@
     map.addControl(new BMap.OverviewMapControl());
     //  map.addControl(new BMap.MapTypeControl());
 </script>
-
+<script type="text/javascript">
+$(".locate").click(
+        function(){
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(function(r){
+                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                    map.panTo(r.point);
+                }
+                else {
+                    alert('failed'+this.getStatus());
+                }
+            },{enableHighAccuracy: true})
+        }
+);
+</script>
 </html>
