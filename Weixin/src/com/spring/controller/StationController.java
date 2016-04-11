@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baidu.calculate.GetDistance;
+import com.baidu.util.GetCityByLocate;
 import com.weixin.util.WeixinUtil;
 import net.sf.json.JSON;
 
@@ -26,10 +27,10 @@ public class StationController {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		String url = "http://app1.u-coupon.cn:8000/weixin/get_station_list.php?city=city_name";
-		String city = request.getParameter("city");
-//		String lng = request.getParameter("lng");
-//		String lat = request.getParameter("lat");
-		System.out.println("不带距离的controler得到的数据:"+city);
+		String lng = request.getParameter("lng");
+		String lat = request.getParameter("lat");
+		System.out.println("不带距离的controler得到的数据:"+lng+","+lat);
+		String city = GetCityByLocate.getCityByLoc(lng, lat);
 		url = url.replace("city_name", city);
 		JSON data = WeixinUtil.doGetStr(url);
 		PrintWriter out = response.getWriter();
@@ -42,12 +43,13 @@ public class StationController {
 	}
 	
 	@RequestMapping("calculate")
-	public void doCalculate(@RequestParam("city") String city, 
+	public void doCalculate(
 							@RequestParam("lng") String lng, 
 							@RequestParam("lat") String lat,
 							HttpServletResponse response) throws IOException{
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		String city = GetCityByLocate.getCityByLoc(lng, lat);
 		JSON data = calculate.calDistance(city, lng, lat);
 		out.print(data);
 	}
@@ -68,4 +70,5 @@ public class StationController {
 		JSON cityData = WeixinUtil.doGetStr(url);
 		out.print(cityData);
 	}
+	
 }

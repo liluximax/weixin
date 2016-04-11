@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baidu.calculate.GetDistance;
+import com.baidu.util.GetCityByLocate;
 import com.google.common.collect.Lists;
 
 public class FunctionTest {
@@ -36,24 +37,24 @@ public class FunctionTest {
 //		double sum = num1 + num2;
 //		System.out.println("sum:"+sum);
 		
-		int[] a = {49,38,65,97,76,13,27,49,78,34,12,64,1};
-		for(int i = 1; i < a.length; i++){
-			int temp = a[i];
-			int j;
-			for(j = i-1; j >= 0; j--){
-				if(a[j] > temp){
-					a[j+1] = a[j];
-				}
-				else{
-					break;
-				}
-			}
-			a[j+1] = temp;
-		}
-		
-		for (int i : a) {
-			System.out.print(i+",");
-		}
+//		int[] a = {49,38,65,97,76,13,27,49,78,34,12,64,1};
+//		for(int i = 1; i < a.length; i++){
+//			int temp = a[i];
+//			int j;
+//			for(j = i-1; j >= 0; j--){
+//				if(a[j] > temp){
+//					a[j+1] = a[j];
+//				}
+//				else{
+//					break;
+//				}
+//			}
+//			a[j+1] = temp;
+//		}
+//		
+//		for (int i : a) {
+//			System.out.print(i+",");
+//		}
 		
 //		List<Map<String, String>> data = new ArrayList<>();
 //		Map<String, String> single1 = new LinkedHashMap<>();
@@ -71,5 +72,8 @@ public class FunctionTest {
 //		
 //		List<Map<String, String>> result = GetDistance.sortByDistance(data);
 //		System.out.println(result.toString());
+		
+		String city = GetCityByLocate.getCityByLoc("116.36483899787", "39.969649077248");
+		System.out.println(city);
 	}
 }

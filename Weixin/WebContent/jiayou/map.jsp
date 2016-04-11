@@ -39,7 +39,7 @@
 		$("#p2").text("点击点坐标:" + e.point.lng + "," + e.point.lat + " ");
 	}); */
     
-    function myFun(result){
+/*     function myFun(result){
         var cityName = result.name;
         $("#p").append(cityName + ",");
         var url = "/Weixin/station/changeJson.do";
@@ -59,7 +59,7 @@
         })
     }
     var myCity = new BMap.LocalCity();
-    myCity.get(myFun);
+    myCity.get(myFun); */
 	
     /* 定位模块 */
 	var geolocation = new BMap.Geolocation();
@@ -71,6 +71,23 @@
 	        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
 	        map.panTo(r.point);
 	 		$("#p").append(" 经度: "+ r.point.lng +" 纬度: "+ r.point.lat);
+	 		
+	        var url = "/Weixin/station/changeJson.do";
+	        //在传参数前一定要对城市名，进行utf-8转码。
+	        //下面的方法，在后台仍然打印不出中文，但是功能不影响
+	        $.getJSON(url, {"lng":r.point.lng, "lat":r.point.lat}, function(data){
+	        	$.each(data.station_list,function(index,item){
+	        		var lat = item.latitude;
+	        		var lng = item.longitude;
+	        		var id = item.station_id;
+	        		var name = item.name;
+	        		var adress = item.address;
+	        		
+	        		var point_target = new BMap.Point(lat, lng);
+	        		addMarker(point_target, id, name, adress);
+	        	})
+	        })
+	 		
 	    }
 	    else {
 	        alert('failed'+this.getStatus());

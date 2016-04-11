@@ -92,12 +92,13 @@ public class GetDistance {
 				station_list.add(single);
 				
 			}
-			Map<String, List<Map<String, String>>> station_list_map = new HashMap<>();
+			Map station_list_map = new HashMap<>();
 			List<Map<String, String>> station_list_sorted = sortByDistance(station_list);
 			station_list_map.put("station_list", station_list_sorted);
+			station_list_map.put("city",city);
 			statioin_list_json = JSONObject.fromObject(station_list_map);
 		}
-
+		System.out.println(statioin_list_json.toString());
 		return statioin_list_json;
 	}
 	
