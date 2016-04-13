@@ -56,37 +56,41 @@
 	}); */
 	
     /* 定位模块 */
-	var geolocation = new BMap.Geolocation();
-	geolocation.getCurrentPosition(function(r){
-	    if(this.getStatus() == BMAP_STATUS_SUCCESS){
-	        var locate = r.point;
-	        var mk = new BMap.Marker(r.point);
-	        map.addOverlay(mk);
-	        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
-	        map.panTo(r.point);
-	 		alert('第二次定位：'+r.point.lng+','+r.point.lat);
-	        var url = "/Weixin/station/changeJson.do";
-	        //在传参数前一定要对城市名，进行utf-8转码。
-	        //下面的方法，在后台仍然打印不出中文，但是功能不影响
-	        $.getJSON(url, {"lng":r.point.lng, "lat":r.point.lat}, function(data){
-	        	$.each(data.station_list,function(index,item){
-	        		var lat = item.latitude;
-	        		var lng = item.longitude;
-	        		var id = item.station_id;
-	        		var name = item.name;
-	        		var adress = item.address;
-	        		
-	        		var point_target = new BMap.Point(lat, lng);
-	        		addMarker(point_target, id, name, adress);
-	        	})
-	        })
-	    }
-	    else {
-	        alert('failed'+this.getStatus());
-	        return "**";
-	    }
-	},{enableHighAccuracy: true});
-
+    function core(){
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		        var locate = r.point;
+		        var mk = new BMap.Marker(r.point);
+		        map.addOverlay(mk);
+		        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
+		        map.panTo(r.point);
+		 		alert('第二次定位：'+r.point.lng+','+r.point.lat);
+		        var url = "/Weixin/station/changeJson.do";
+		        //在传参数前一定要对城市名，进行utf-8转码。
+		        //下面的方法，在后台仍然打印不出中文，但是功能不影响
+		        $.getJSON(url, {"lng":r.point.lng, "lat":r.point.lat}, function(data){
+		        	$.each(data.station_list,function(index,item){
+		        		var lat = item.latitude;
+		        		var lng = item.longitude;
+		        		var id = item.station_id;
+		        		var name = item.name;
+		        		var adress = item.address;
+		        		
+		        		var point_target = new BMap.Point(lat, lng);
+		        		addMarker(point_target, id, name, adress);
+		        	})
+		        })
+		    }
+		    else {
+		        alert('failed'+this.getStatus());
+		        return "**";
+		    }
+		},{enableHighAccuracy: true});
+		
+	}
+	setTimeout(core, 500);
+	
 </script>
 
 <!-- 调整标尺比例 -->

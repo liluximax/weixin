@@ -81,122 +81,125 @@ a{
 	var cityName = '<%=request.getParameter("cityName") %>';
 	var lat = 0;
 	var lng = 0;
-	if(cityName == "null"){
-		var geolocation = new BMap.Geolocation();
-		geolocation.getCurrentPosition(function(r){
-		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
-		    	lng = r.point.lng;
-		    	lat = r.point.lat;
-		        var url = "/Weixin/station/calculate.do";
-		        //在传参数前一定要对城市名，进行utf-8转码。
-		        //下面的方法，在后台仍然打印不出中文，但是功能不影响
-		        alert('第二次定位：'+lng+','+lat);
-		        $.getJSON(url, {"lng":lng, "lat":lat}, function(data){
-		        	if(data.station_list != null){
-	    	        	cityName = data.city;
-	    	        	$(".cityName").text(cityName);
-		        		$.each(data.station_list,function(index,item){
-	    	        		$(".list").append("<ul class='single'>");
-	    	        		/*
-	    	        		!!!接口中经纬度标反了!!!
-	    	        		*/
-	    	        		var lng = item.latitude;
-	    	        		var lat = item.longitude;
-	    	        		var id = item.station_id;
-	    	        		var name = item.name;
-	    	        		var address = item.address;
-	    	        		var distance = item.distance;
-	    	        		
-	    					var lat_content = $("<li>"+lat+"</li>");
-	    	        		var lng_content = $("<li>"+lng+"</li>");
-	    	        		var id_content = $("<li>"+id+"</li>");
-	    	                var name_content = 
-	    	                    $("<form action='dolist.jsp' method='post'>"
-	    	                    +"<input id='lng' name='lng' type='hidden' value="+lat+">"
-	    	                    +"<input id='lat' name='lat' type='hidden' value="+lng+">"
-	    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
-	    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
-	    	                    +"<input id='adress' name='adress' type='hidden' value="+address+">"
-	    	                    +"<input class='name' type='submit' align='center' value="+name+">"
-	    	                    +"</form>");
-	    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */
-	    	        		var adress_content = $("<li><span class='adress'>地址:</span>"+address+"</li>");
-	    	        		var tel = $("<li class='tel'>联系电话:</li>");
-	    	        		var distance_content = $("<li class='adress'>距您约<span class='distance'>"+distance+"</span>公里</li>");
-	    	        		
-	    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul><hr>");
-	    	        	})
-		        	}
-		        	else{
-		        		var no_station = $("<p>当前城市没有合作加油站</p>");
-		        		$(".list").append(no_station);
-		        	}
-		        })
-		 		
-		    }
-		    else {
-		        alert('failed'+this.getStatus());
-		        return "**";
-		    }
-		},{enableHighAccuracy: true});
+	function core(){
+		if(cityName == "null"){
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+			    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			    	lng = r.point.lng;
+			    	lat = r.point.lat;
+			        var url = "/Weixin/station/calculate.do";
+			        //在传参数前一定要对城市名，进行utf-8转码。
+			        //下面的方法，在后台仍然打印不出中文，但是功能不影响
+			        alert('第二次定位：'+lng+','+lat);
+			        $.getJSON(url, {"lng":lng, "lat":lat}, function(data){
+			        	if(data.station_list != null){
+		    	        	cityName = data.city;
+		    	        	$(".cityName").text(cityName);
+			        		$.each(data.station_list,function(index,item){
+		    	        		$(".list").append("<ul class='single'>");
+		    	        		/*
+		    	        		!!!接口中经纬度标反了!!!
+		    	        		*/
+		    	        		var lng = item.latitude;
+		    	        		var lat = item.longitude;
+		    	        		var id = item.station_id;
+		    	        		var name = item.name;
+		    	        		var address = item.address;
+		    	        		var distance = item.distance;
+		    	        		
+		    					var lat_content = $("<li>"+lat+"</li>");
+		    	        		var lng_content = $("<li>"+lng+"</li>");
+		    	        		var id_content = $("<li>"+id+"</li>");
+		    	                var name_content = 
+		    	                    $("<form action='dolist.jsp' method='post'>"
+		    	                    +"<input id='lng' name='lng' type='hidden' value="+lat+">"
+		    	                    +"<input id='lat' name='lat' type='hidden' value="+lng+">"
+		    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
+		    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
+		    	                    +"<input id='adress' name='adress' type='hidden' value="+address+">"
+		    	                    +"<input class='name' type='submit' align='center' value="+name+">"
+		    	                    +"</form>");
+		    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */
+		    	        		var adress_content = $("<li><span class='adress'>地址:</span>"+address+"</li>");
+		    	        		var tel = $("<li class='tel'>联系电话:</li>");
+		    	        		var distance_content = $("<li class='adress'>距您约<span class='distance'>"+distance+"</span>公里</li>");
+		    	        		
+		    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul><hr>");
+		    	        	})
+			        	}
+			        	else{
+			        		var no_station = $("<p>当前城市没有合作加油站</p>");
+			        		$(".list").append(no_station);
+			        	}
+			        })
+			 		
+			    }
+			    else {
+			        alert('failed'+this.getStatus());
+			        return "**";
+			    }
+			},{enableHighAccuracy: true});
+		}
+		else{
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+			    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			    	lng = r.point.lng;
+			    	lat = r.point.lat;
+			        var url = "/Weixin/station/calculate.do";
+			        $(".cityName").text(cityName);
+			        //在传参数前一定要对城市名，进行utf-8转码。
+			        //下面的方法，在后台仍然打印不出中文，但是功能不影响
+			        $.getJSON(url, {city:encodeURI(cityName,"utf-8"),"lng":lng, "lat":lat}, function(data){
+			        	if(data.station_list != null){
+			        		$.each(data.station_list,function(index,item){
+		    	        		$(".list").append("<ul class='single'>");
+		    	        		/*
+		    	        		!!!接口中经纬度标反了!!!
+		    	        		*/
+		    	        		var lng = item.latitude;
+		    	        		var lat = item.longitude;
+		    	        		var id = item.station_id;
+		    	        		var name = item.name;
+		    	        		var address = item.address;
+		    	        		var distance = item.distance;
+		    	        		
+		    					var lat_content = $("<li>"+lat+"</li>");
+		    	        		var lng_content = $("<li>"+lng+"</li>");
+		    	        		var id_content = $("<li>"+id+"</li>");
+		    	                var name_content = 
+		    	                    $("<form action='dolist.jsp' method='post'>"
+		    	                    +"<input id='lng' name='lng' type='hidden' value="+lat+">"
+		    	                    +"<input id='lat' name='lat' type='hidden' value="+lng+">"
+		    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
+		    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
+		    	                    +"<input id='adress' name='adress' type='hidden' value="+address+">"
+		    	                    +"<input class='name' type='submit' align='center' value="+name+">"
+		    	                    +"</form>");
+		    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */
+		    	        		var adress_content = $("<li><span class='adress'>地址:</span>"+address+"</li>");
+		    	        		var tel = $("<li class='tel'>联系电话:</li>");
+		    	        		var distance_content = $("<li class='adress'>距您约<span class='distance'>"+distance+"</span>公里</li>");
+		    	        		
+		    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul><hr>");
+		    	        	})
+			        	}
+			        	else{
+			        		var no_station = $("<p>当前城市没有合作加油站</p>");
+			        		$(".list").append(no_station);
+			        	}
+			        })
+			 		
+			    }
+			    else {
+			        alert('failed'+this.getStatus());
+			        return "**";
+			    }
+			},{enableHighAccuracy: true});
+		}
 	}
-	else{
-		var geolocation = new BMap.Geolocation();
-		geolocation.getCurrentPosition(function(r){
-		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
-		    	lng = r.point.lng;
-		    	lat = r.point.lat;
-		        var url = "/Weixin/station/calculate.do";
-		        $(".cityName").text(cityName);
-		        //在传参数前一定要对城市名，进行utf-8转码。
-		        //下面的方法，在后台仍然打印不出中文，但是功能不影响
-		        $.getJSON(url, {city:encodeURI(cityName,"utf-8"),"lng":lng, "lat":lat}, function(data){
-		        	if(data.station_list != null){
-		        		$.each(data.station_list,function(index,item){
-	    	        		$(".list").append("<ul class='single'>");
-	    	        		/*
-	    	        		!!!接口中经纬度标反了!!!
-	    	        		*/
-	    	        		var lng = item.latitude;
-	    	        		var lat = item.longitude;
-	    	        		var id = item.station_id;
-	    	        		var name = item.name;
-	    	        		var address = item.address;
-	    	        		var distance = item.distance;
-	    	        		
-	    					var lat_content = $("<li>"+lat+"</li>");
-	    	        		var lng_content = $("<li>"+lng+"</li>");
-	    	        		var id_content = $("<li>"+id+"</li>");
-	    	                var name_content = 
-	    	                    $("<form action='dolist.jsp' method='post'>"
-	    	                    +"<input id='lng' name='lng' type='hidden' value="+lat+">"
-	    	                    +"<input id='lat' name='lat' type='hidden' value="+lng+">"
-	    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
-	    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
-	    	                    +"<input id='adress' name='adress' type='hidden' value="+address+">"
-	    	                    +"<input class='name' type='submit' align='center' value="+name+">"
-	    	                    +"</form>");
-	    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */
-	    	        		var adress_content = $("<li><span class='adress'>地址:</span>"+address+"</li>");
-	    	        		var tel = $("<li class='tel'>联系电话:</li>");
-	    	        		var distance_content = $("<li class='adress'>距您约<span class='distance'>"+distance+"</span>公里</li>");
-	    	        		
-	    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul><hr>");
-	    	        	})
-		        	}
-		        	else{
-		        		var no_station = $("<p>当前城市没有合作加油站</p>");
-		        		$(".list").append(no_station);
-		        	}
-		        })
-		 		
-		    }
-		    else {
-		        alert('failed'+this.getStatus());
-		        return "**";
-		    }
-		},{enableHighAccuracy: true});
-	}
+	setTimeout(core, 500);
 	
 </script>
 
