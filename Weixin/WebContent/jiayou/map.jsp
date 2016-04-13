@@ -29,10 +29,26 @@
     <p id="name"></p>
 </div> -->
 </body>
+
 <script type="text/javascript">
-    var map = new BMap.Map("container");          // 创建地图实例
-    var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
-    map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别 */
+	var map = new BMap.Map("container");          // 创建地图实例
+	var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
+	map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别 */
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			alert('第一次定位：'+r.point.lng+','+r.point.lat);
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+</script>
+
+<script type="text/javascript">
 
 	//事件监听，显示当前位置坐标
 /* 	map.addEventListener("click",function(e){
@@ -48,8 +64,7 @@
 	        map.addOverlay(mk);
 	        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
 	        map.panTo(r.point);
-	 		$("#p").append(" 经度: "+ r.point.lng +" 纬度: "+ r.point.lat);
-	 		
+	 		alert('第二次定位：'+r.point.lng+','+r.point.lat);
 	        var url = "/Weixin/station/changeJson.do";
 	        //在传参数前一定要对城市名，进行utf-8转码。
 	        //下面的方法，在后台仍然打印不出中文，但是功能不影响

@@ -61,7 +61,19 @@ a{
 </body>
 
 <script type="text/javascript">
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			alert('第一次定位：'+r.point.lng+','+r.point.lat);
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+</script>
 
+<script type="text/javascript">
+	
 	<%
 	request.setCharacterEncoding("utf-8");
 	response.setContentType("text/html;charset=utf-8");
@@ -78,6 +90,7 @@ a{
 		        var url = "/Weixin/station/calculate.do";
 		        //在传参数前一定要对城市名，进行utf-8转码。
 		        //下面的方法，在后台仍然打印不出中文，但是功能不影响
+		        alert('第二次定位：'+lng+','+lat);
 		        $.getJSON(url, {"lng":lng, "lat":lat}, function(data){
 		        	if(data.station_list != null){
 	    	        	cityName = data.city;
