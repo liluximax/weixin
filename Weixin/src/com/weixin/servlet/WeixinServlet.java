@@ -185,6 +185,7 @@ public class WeixinServlet extends HttpServlet {
 			System.out.println("*****************");
 			System.out.println();
 			out.print(message);
+			
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

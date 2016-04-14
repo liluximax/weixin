@@ -33,7 +33,7 @@ public class WeixinTest {
 		/**
 		 * 创建菜单
 		 */
-		String menu = JSONObject.fromObject(WeixinUtil.initMenu2()).toString();
+		String menu = JSONObject.fromObject(WeixinUtil.initMenu3()).toString();
 		int result = WeixinUtil.creatMenu(token.getToken(), menu);
 		if(result == 0){
 			System.out.println("菜单创建成功");

@@ -16,17 +16,30 @@ public class MessageManage {
 		return buffer.toString();
 	}
 	
-	public String Menu1(){
+	public String UcouponSub(){
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("菜单1\n");
-		buffer.append("按 ? 返回主菜单");
+		buffer.append("###欢迎关注###\n\n");
+		buffer.append("欢迎语");
 		return buffer.toString();
 	}
 	
 	public String Menu2(){
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("菜单2\n");
-		buffer.append("按 ? 返回主菜单");
+		buffer.append("业务介绍\n\n");
+		buffer.append("介绍内容");
+		return buffer.toString();
+	}
+	
+	public String Menu3(){
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("获取App\n");
+		buffer.append("");
+		return buffer.toString();
+	}
+	
+	public String AutoMessage(){
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("收到您的反馈");
 		return buffer.toString();
 	}
 	

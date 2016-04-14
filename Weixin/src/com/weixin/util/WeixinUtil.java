@@ -335,6 +335,52 @@ public class WeixinUtil {
 		return menu;
 	}
 	
+	/*
+	 * u-coupon菜单
+	 */
+	public static Menu initMenu3(){
+		
+		String url = "";
+		
+		Menu menu = new Menu();
+		
+		ViewButton button11 = new ViewButton();
+		button11.setName("列表");
+		button11.setType("view");
+		url = SNSAPI_USERINFO_URL.replace("APPID", DeveloperId.APPID)
+								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fjiayou%2flist.jsp")
+								 .replace("SCOPE", "snsapi_userinfo");
+		System.out.println(url);
+		button11.setUrl(url);
+		
+		ViewButton button12 = new ViewButton();
+		button12.setName("地图");
+		button12.setType("view");
+		url = SNSAPI_USERINFO_URL.replace("APPID", DeveloperId.APPID)
+								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fjiayou%2fmap.jsp")
+								 .replace("SCOPE", "snsapi_userinfo");
+		button12.setUrl(url);
+		
+		Button button1 = new Button();
+		button1.setName("我要加油");
+		button1.setType("click");
+		button1.setSub_button(new Button[]{button11, button12});
+		
+		ClikButton button2 = new ClikButton();
+		button2.setName("业务介绍");
+		button2.setType("click");
+		button2.setKey("2");
+		
+		ClikButton button3 = new ClikButton();
+		button3.setName("获取App");
+		button3.setType("click");
+		button3.setKey("3");
+		
+		menu.setButton(new Button[]{button1, button2, button3});
+		
+		return menu;
+	}
+	
 	public static int creatMenu(String token, String menu){
 		int result = 0;
 		String url = CREATE_MENU_URL.replace("ACCESS_TOKEN", token);

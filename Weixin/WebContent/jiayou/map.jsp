@@ -34,18 +34,25 @@
 	var map = new BMap.Map("container");          // 创建地图实例
 	var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
 	map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别 */
-	var geolocation = new BMap.Geolocation();
-	geolocation.getCurrentPosition(function(r){
-		if(this.getStatus() == BMAP_STATUS_SUCCESS){
-			var mk = new BMap.Marker(r.point);
-			map.addOverlay(mk);
-			map.panTo(r.point);
-			alert('第一次定位：'+r.point.lng+','+r.point.lat);
-		}
-		else {
-			alert('failed'+this.getStatus());
-		}        
-	},{enableHighAccuracy: true})
+	
+	$(document).ready(
+		function(){
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					var Icon = new BMap.Icon("/Weixin/image/jiayouzhan.png",new BMap.Size(30,30));
+					var mk = new BMap.Marker(r.point,{icon:Icon});
+					map.addOverlay(mk);
+					map.panTo(r.point); 
+					/* alert('第一次定位：'+r.point.lng+','+r.point.lat); */
+				}
+				else {
+					alert('failed'+this.getStatus());
+				}        
+			},{enableHighAccuracy: true})
+		}		
+	)
+
 </script>
 
 <script type="text/javascript">
@@ -56,40 +63,45 @@
 	}); */
 	
     /* 定位模块 */
-    function core(){
-		var geolocation = new BMap.Geolocation();
-		geolocation.getCurrentPosition(function(r){
-		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
-		        var locate = r.point;
-		        var mk = new BMap.Marker(r.point);
-		        map.addOverlay(mk);
-		        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
-		        map.panTo(r.point);
-		 		alert('第二次定位：'+r.point.lng+','+r.point.lat);
-		        var url = "/Weixin/station/changeJson.do";
-		        //在传参数前一定要对城市名，进行utf-8转码。
-		        //下面的方法，在后台仍然打印不出中文，但是功能不影响
-		        $.getJSON(url, {"lng":r.point.lng, "lat":r.point.lat}, function(data){
-		        	$.each(data.station_list,function(index,item){
-		        		var lat = item.latitude;
-		        		var lng = item.longitude;
-		        		var id = item.station_id;
-		        		var name = item.name;
-		        		var adress = item.address;
-		        		
-		        		var point_target = new BMap.Point(lat, lng);
-		        		addMarker(point_target, id, name, adress);
-		        	})
-		        })
-		    }
-		    else {
-		        alert('failed'+this.getStatus());
-		        return "**";
-		    }
-		},{enableHighAccuracy: true});
-		
-	}
-	setTimeout(core, 500);
+    $(document).ready(
+    	function(){
+    	    function core(){
+    			var geolocation = new BMap.Geolocation();
+    			geolocation.getCurrentPosition(function(r){
+    			    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+    			        var locate = r.point;
+    			        var mk = new BMap.Marker(r.point);
+    			        map.addOverlay(mk);
+    			        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
+    			        map.panTo(r.point);
+    			 		/* alert('第二次定位：'+r.point.lng+','+r.point.lat); */
+    			        var url = "/Weixin/station/changeJson.do";
+    			        //在传参数前一定要对城市名，进行utf-8转码。
+    			        //下面的方法，在后台仍然打印不出中文，但是功能不影响
+    			        $.getJSON(url, {"lng":r.point.lng, "lat":r.point.lat}, function(data){
+    			        	$.each(data.station_list,function(index,item){
+    			        		var lat = item.latitude;
+    			        		var lng = item.longitude;
+    			        		var id = item.station_id;
+    			        		var name = item.name;
+    			        		var adress = item.address;
+    			        		
+    			        		var point_target = new BMap.Point(lat, lng);
+    			        		addMarker(point_target, id, name, adress);
+    			        	})
+    			        })
+    			    }
+    			    else {
+    			        alert('failed'+this.getStatus());
+    			        return "**";
+    			    }
+    			},{enableHighAccuracy: true});
+    			
+    		}
+    		setTimeout(core, 500);
+    	}		
+    )
+
 	
 </script>
 
@@ -166,21 +178,30 @@ $(".locate").click(
 );
 </script>
 <script type="text/javascript">
-	var code = '<%=request.getParameter("code") %>';
-	var state = '<%=request.getParameter("state") %>';
-	if(code != "null"){
-		var url = "/Weixin/userinfo/getuserinfo.do";
-		$.getJSON(url,{"code":code, "state":state},function(data){
-			var nickname = data.nickname;
-			var headimgurl = data.headimgurl;
-			var openid = data.openid;
-			$(".headimg").attr("src",headimgurl);
-		});
-	}
-	var headimgurl = '<%=session.getAttribute("imageurl") %>';
-	if(headimgurl != "null"){
-		$(".headimg").attr("src",headimgurl);
-	}
+	
+	$(document).ready(
+		function(){
+			function head(){
+				var code = '<%=request.getParameter("code") %>';
+				var state = '<%=request.getParameter("state") %>';
+				if(code != "null"){
+					var url = "/Weixin/userinfo/getuserinfo.do";
+					$.getJSON(url,{"code":code, "state":state},function(data){
+						var nickname = data.nickname;
+						var headimgurl = data.headimgurl;
+						var openid = data.openid;
+						$(".headimg").attr("src",headimgurl);
+					});
+				}
+				var headimgurl = '<%=session.getAttribute("imageurl") %>';
+				if(headimgurl != "null"){
+					$(".headimg").attr("src",headimgurl);
+				}
+			}
+			setTimeout(head, 1000);
+		}		
+	)
+
 </script>
 
 </html>
