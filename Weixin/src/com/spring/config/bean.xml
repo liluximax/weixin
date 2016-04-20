@@ -9,4 +9,18 @@
            http://www.springframework.org/schema/context/spring-context.xsd">
            
      <context:component-scan base-package="com.baidu.calculate"></context:component-scan>
+     <context:component-scan base-package="com.spring.dao"></context:component-scan>
+     <context:component-scan base-package="com.spring.service"></context:component-scan>
+     <!-- 114.67.23.38 -->
+     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://115.29.51.206/weixin_db"
+		p:username="root"
+		p:password="llx"/>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource"/>
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
 </beans>

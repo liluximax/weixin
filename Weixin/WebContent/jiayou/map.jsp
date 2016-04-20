@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" buffer="none"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +98,7 @@
     			},{enableHighAccuracy: true});
     			
     		}
-    		setTimeout(core, 500);
+    		setTimeout(core, 800);
     	}		
     )
 

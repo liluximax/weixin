@@ -5,6 +5,10 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.spring.service.AccessTokenService;
 import com.weixin.model.token.AccessToken;
 import com.weixin.service.PayService;
 import com.weixin.util.ModelMessageUtil;
@@ -16,9 +20,10 @@ public class WeixinTest {
 	public static void main(String[] args) {
 		
 		//access_token
-		AccessToken token = WeixinUtil.getAccessToken();
-		System.out.println("token: " + token.getToken());
-		System.out.println("expire: " + token.getExpiresIn());
+		ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/config/bean.xml");
+		AccessTokenService service = context.getBean("access_token_service",AccessTokenService.class);
+		String token = service.getAccessToken();	
+		System.out.println("token: " + token);
 		
 		
 		
@@ -34,7 +39,7 @@ public class WeixinTest {
 		 * 创建菜单
 		 */
 		String menu = JSONObject.fromObject(WeixinUtil.initMenu3()).toString();
-		int result = WeixinUtil.creatMenu(token.getToken(), menu);
+		int result = WeixinUtil.creatMenu(token, menu);
 		if(result == 0){
 			System.out.println("菜单创建成功");
 		}

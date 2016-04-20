@@ -7,9 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.baidu.calculate.GetDistance;
 import com.baidu.util.GetCityByLocate;
 import com.google.common.collect.Lists;
+import com.spring.dao.AccessTokenDao;
+import com.weixin.model.token.AccessToken;
 
 public class FunctionTest {
 	
@@ -73,7 +78,13 @@ public class FunctionTest {
 //		List<Map<String, String>> result = GetDistance.sortByDistance(data);
 //		System.out.println(result.toString());
 		
-		String city = GetCityByLocate.getCityByLoc("116.36483899787", "39.969649077248");
-		System.out.println(city);
+		String token = "hA2jMBYJWjnzkNFIaXdDrzSyH3P0zmlQLCWVZmnux7GgIWdZp0e3bHffKXHePk_bJBd9I51Uzs_CDz31DeczunJ7IK0KW22SrFHQbncpo4ek3Sh_5XLjoNbp0slUSehUFKYeADAPUI";
+		System.out.println(token.length());
+//		ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/config/bean.xml");
+//		AccessTokenDao accessTokenDao = (AccessTokenDao) context.getBean("access_token_dao");
+//		AccessToken token = accessTokenDao.getaccess_token();
+//		System.out.println(token.getToken()+","+token.getExpire_time());
+		
+		
 	}
 }

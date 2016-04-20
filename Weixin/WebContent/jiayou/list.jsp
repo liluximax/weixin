@@ -207,7 +207,7 @@ response.setContentType("text/html;charset=utf-8");
 					},{enableHighAccuracy: true});
 				}
 			}
-			setTimeout(core, 500);
+			setTimeout(core, 800);
 		}		
 	)
 

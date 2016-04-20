@@ -29,7 +29,6 @@ public class JsUtil {
 		JSONObject jsonObject = WeixinUtil.doGetStr(url);
 		if(jsonObject != null){
 			token.setToken(jsonObject.getString("access_token"));
-			token.setExpiresIn(jsonObject.getInt("expires_in"));
 		}
 		return token;
 	} 
