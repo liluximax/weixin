@@ -29,4 +29,8 @@ public class AccessTokenService {
 		}
 		return token_db;
 	}
+	
+	public String getAccessTokenDir(){
+		return WeixinUtil.getAccessToken().getToken();
+	}
 }

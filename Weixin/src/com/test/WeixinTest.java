@@ -10,9 +10,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.spring.service.AccessTokenService;
 import com.weixin.model.token.AccessToken;
+import com.weixin.model.token.JsSignature;
 import com.weixin.service.PayService;
 import com.weixin.util.ModelMessageUtil;
 import com.weixin.util.WeixinUtil;
+import com.weixin.util.jssdk.JsUtil;
 
 import net.sf.json.JSONObject;
 
@@ -22,10 +24,17 @@ public class WeixinTest {
 		//access_token
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/config/bean.xml");
 		AccessTokenService service = context.getBean("access_token_service",AccessTokenService.class);
-		String token = service.getAccessToken();	
-		System.out.println("token: " + token);
+//		String token = service.getAccessToken();	
+//		System.out.println("token: " + token);
 		
-		
+		//u-coupon
+		String token = service.getAccessTokenDir();
+		/*
+		 * jssdk验证
+		 */
+//		JsUtil util = context.getBean("jsutil",JsUtil.class);
+//		JsSignature signature = util.sign("http://115.29.51.206/Weixin/add.jsp");
+//		System.out.println(signature.getSignature());
 		
 //		String filePath = "/home/liluxi/Downloads/pic2.jpg";
 //		String type = "thumb";

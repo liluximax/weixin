@@ -325,7 +325,7 @@ public class WeixinUtil {
 		button3.setName("userinfo授权");
 		button3.setType("view");
 		url = SNSAPI_USERINFO_URL.replace("APPID", DeveloperId.APPID)
-								 .replace("REDIRECT_URI", "http%3a%2f%2fwxoa.u-coupon.cn%2fWeixin%2fadd.jsp")
+								 .replace("REDIRECT_URI", "http%3a%2f%2f115.29.51.206%2fWeixin%2fadd.jsp")
 								 .replace("SCOPE", "snsapi_userinfo");
 		button3.setUrl(url);
 		

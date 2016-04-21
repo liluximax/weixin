@@ -1,33 +1,35 @@
 package com.weixin.model.token;
 
 public class JsApiTicket {
-	private int errcode;
-	private String errmsg;
+
 	private String ticket;
-	private int expires_in;
 	
-	public int getErrcode() {
-		return errcode;
-	}
-	public void setErrcode(int errcode) {
-		this.errcode = errcode;
-	}
-	public String getErrmsg() {
-		return errmsg;
-	}
-	public void setErrmsg(String errmsg) {
-		this.errmsg = errmsg;
-	}
+	private long expire_time;
+	
+	private long create_time;
+
 	public String getTicket() {
 		return ticket;
 	}
+
 	public void setTicket(String ticket) {
 		this.ticket = ticket;
 	}
-	public int getExpires_in() {
-		return expires_in;
+
+	public long getExpire_time() {
+		return expire_time;
 	}
-	public void setExpires_in(int expires_in) {
-		this.expires_in = expires_in;
+
+	public void setExpire_time(long expire_time) {
+		this.expire_time = expire_time;
 	}
+
+	public long getCreate_time() {
+		return create_time;
+	}
+
+	public void setCreate_time(long create_time) {
+		this.create_time = create_time;
+	}
+	
 }

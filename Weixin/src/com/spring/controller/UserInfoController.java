@@ -3,15 +3,19 @@ package com.spring.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.weixin.model.token.JsSignature;
 import com.weixin.util.DeveloperId;
 import com.weixin.util.WeixinUtil;
+import com.weixin.util.jssdk.JsUtil;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
@@ -20,6 +24,8 @@ import net.sf.json.JSONObject;
 @RequestMapping(value="userinfo")
 public class UserInfoController {
 	
+	@Autowired
+	private JsUtil jsUtil;
 	
 	private static final String ACCESS_TOKEN_URL_WEB = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
 	
@@ -67,5 +73,17 @@ public class UserInfoController {
 //		String nickname = userInfo.getString("nickname");
 //		String headimgurl = userInfo.getString("headimgurl");
 //		System.out.println(nickname+","+headimgurl);
+	}
+	
+	@RequestMapping("jssdk")
+	public void getJssdk(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String url = request.getParameter("url");
+//		String url = "http://wxoa.u-coupon.cn/Weixin/jiayou/list.jsp";
+//		String url = "http://115.29.51.206/Weixin/add.jsp";
+		JsSignature signature = jsUtil.sign(url);
+		JSONObject result = JSONObject.fromObject(signature);
+		out.print(result.toString());
 	}
 } 
