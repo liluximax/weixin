@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.spring.dao.JsapiTicketDao;
 import com.weixin.model.token.JsApiTicket;
+import com.weixin.util.DeveloperId;
 import com.weixin.util.WeixinUtil;
 import net.sf.json.JSONObject;
 
@@ -38,17 +39,33 @@ public class JsApiTicketService {
 	public String getJsApiTicket(){
 		
 		long now = System.currentTimeMillis()/1000;
+		String ticket_db = "";
 		
-		JsApiTicket jsApiTicketDb = jsapiTicketDao.getJsApiTicket();
-		
-		long expire_time = jsApiTicketDb.getExpire_time();
-		String ticket_db = jsApiTicketDb.getTicket();
-		
-		if(expire_time < now){
-			String ticket = getjsspi_ticket();
-			jsapiTicketDao.insertJsApiTicket(ticket);
-			ticket_db = ticket;
+		if(DeveloperId.server.equals("ali")){
+			JsApiTicket jsApiTicketDb = jsapiTicketDao.getJsApiTicket();
+			
+			long expire_time = jsApiTicketDb.getExpire_time();
+			ticket_db = jsApiTicketDb.getTicket();
+			
+			if(expire_time < now){
+				String ticket = getjsspi_ticket();
+				jsapiTicketDao.insertJsApiTicket(ticket);
+				ticket_db = ticket;
+			}
 		}
+		else {
+			JsApiTicket jsApiTicketDb = jsapiTicketDao.getJsApiTicket_u();
+			
+			long expire_time = jsApiTicketDb.getExpire_time();
+			ticket_db = jsApiTicketDb.getTicket();
+			
+			if(expire_time < now){
+				String ticket = getjsspi_ticket();
+				jsapiTicketDao.insertJsApiTicket_u(ticket);
+				ticket_db = ticket;
+			}
+		}
+		
 		return ticket_db;
 	}
 	
