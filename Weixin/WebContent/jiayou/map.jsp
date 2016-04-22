@@ -16,6 +16,8 @@
         //v1.4版本及以前版本的引用方式：src="http://api.map.baidu.com/api?v=1.4&key=您的密钥&callback=initialize"
     </script>
     <script type="text/javascript" src="../jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     
 </head>
 
@@ -35,7 +37,7 @@
 	var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
 	map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别 */
 	
-	$(document).ready(
+/* 	$(document).ready(
 		function(){
 			var geolocation = new BMap.Geolocation();
 			geolocation.getCurrentPosition(function(r){
@@ -44,14 +46,14 @@
 					var mk = new BMap.Marker(r.point,{icon:Icon});
 					map.addOverlay(mk);
 					map.panTo(r.point); 
-					/* alert('第一次定位：'+r.point.lng+','+r.point.lat); */
+					alert('第一次定位：'+r.point.lng+','+r.point.lat); 
 				}
 				else {
 					alert('failed'+this.getStatus());
 				}        
 			},{enableHighAccuracy: true})
 		}		
-	)
+	) */
 
 </script>
 
@@ -62,8 +64,72 @@
 		$("#p2").text("点击点坐标:" + e.point.lng + "," + e.point.lat + " ");
 	}); */
 	
+	$.getJSON("/Weixin/userinfo/jssdk.do",{url:location.href.split('#')[0]}, function(data){
+		
+		var _appId = data.appId;
+		var _signature = data.signature;
+		var _timestamp = data.timestamp;
+		var _nonceStr = data.noncestr;
+		wx.config({
+		    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		    appId: data.appId, // 必填，公众号的唯一标识
+		    timestamp: data.timestamp, // 必填，生成签名的时间戳
+		    nonceStr: data.noncestr, // 必填，生成签名的随机串
+		    signature: data.signature,// 必填，签名，见附录1
+		    jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+		
+		wx.ready(function () {
+			    // 在这里调用 API
+			wx.getLocation({
+			    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+			    success: function (res) {
+			        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+			        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+			        var speed = res.speed; // 速度，以米/每秒计
+			        var accuracy = res.accuracy; // 位置精度
+			        /* alert(latitude+","+longitude); */
+			        
+			        var location = new BMap.Point(longitude, latitude);
+			        translateCallback = function (data){
+			            if(data.status === 0) {
+			              var marker = new BMap.Marker(data.points[0]);
+			              map.addOverlay(marker);
+			              map.panTo(data.points[0]);
+			              /* map.setCenter(data.points[0]); */
+			            }
+			        }
+			        
+			        var convertor = new BMap.Convertor();
+			        var pointArr = [];
+			        pointArr.push(location);
+			        convertor.translate(pointArr, 1, 5, translateCallback)
+			      	
+			        var url = "/Weixin/station/changeJson.do";
+			        $.getJSON(url, {"lng":longitude, "lat":latitude}, function(data){
+   			        	$.each(data.station_list,function(index,item){
+   			        		var lat = item.latitude;
+   			        		var lng = item.longitude;
+   			        		var id = item.station_id;
+   			        		var name = item.name;
+   			        		var adress = item.address;
+   			        		
+   			        		var point_target = new BMap.Point(lat, lng);
+   			        		addMarker(point_target, id, name, adress);
+   			        	})
+			        })
+			        
+			    }
+			
+			});
+			    
+		});
+		
+	});
+	
+	
     /* 定位模块 */
-    $(document).ready(
+/*      $(document).ready(
     	function(){
     	    function core(){
     			var geolocation = new BMap.Geolocation();
@@ -74,7 +140,7 @@
     			        map.addOverlay(mk);
     			        mk.setAnimation(BMAP_ANIMATION_BOUNCE);
     			        map.panTo(r.point);
-    			 		/* alert('第二次定位：'+r.point.lng+','+r.point.lat); */
+    			 		alert('第二次定位：'+r.point.lng+','+r.point.lat); 
     			        var url = "/Weixin/station/changeJson.do";
     			        //在传参数前一定要对城市名，进行utf-8转码。
     			        //下面的方法，在后台仍然打印不出中文，但是功能不影响
@@ -100,7 +166,7 @@
     		}
     		setTimeout(core, 800);
     	}		
-    )
+    ) */
 
 	
 </script>
