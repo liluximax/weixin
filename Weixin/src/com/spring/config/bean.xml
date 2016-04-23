@@ -15,7 +15,7 @@
      <!-- 114.67.23.38 -->
      <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://115.29.51.206/weixin_db"
+		p:url="jdbc:mysql://115.29.51.206/weixin_db?useUnicode=true&amp;characterEncoding=UTF-8"
 		p:username="root"
 		p:password="llx"/>
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"

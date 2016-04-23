@@ -14,6 +14,8 @@
 	<p>code: <%=request.getParameter("code") %></p>
 	<div>
 		<span class="user"></span>
+		<input id="btn" type="button" value="测试">
+		<img id="img" src="">
 	</div>
 	
 	<script type="text/javascript">
@@ -30,7 +32,7 @@
 			    timestamp: data.timestamp, // 必填，生成签名的时间戳
 			    nonceStr: data.noncestr, // 必填，生成签名的随机串
 			    signature: data.signature,// 必填，签名，见附录1
-			    jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+			    jsApiList: ['getLocation','chooseImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 			});
 			
 			wx.ready(function () {
@@ -42,11 +44,21 @@
 				        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
 				        var speed = res.speed; // 速度，以米/每秒计
 				        var accuracy = res.accuracy; // 位置精度
-				        alert(latitude+","+longitude);
 				    }
 				});
+				    
+				document.getElementById("btn").onclick = function(){
+					wx.chooseImage({
+					    count: 1, // 默认9
+					    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+					    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+					    success: function (res) {
+					        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+					    	$("#img").attr("src",localIds);
+					    }
+					});
+				}
 			});
-			
 		});
 	</script>
 		

@@ -2,7 +2,6 @@ package com.baidu.calculate;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -55,7 +54,8 @@ public class GetDistance {
 		String city = _city;
 		double lng = Double.parseDouble(_lng);
 		double lat = Double.parseDouble(_lat);
-		String url = "http://app1.u-coupon.cn:8000/weixin/get_station_list.php?city=city_name";
+//		String url = "http://app1.u-coupon.cn:8000/weixin/get_station_list.php?city=city_name";
+		String url = "http://115.29.51.206/Weixin/station/station_list.do?city=city_name";
 		url = url.replace("city_name", city);
 		JSON data = WeixinUtil.doGetStr(url);
 		String data_string = data.toString();

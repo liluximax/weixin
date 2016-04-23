@@ -24,11 +24,7 @@ public class WeixinTest {
 		//access_token
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/config/bean.xml");
 		AccessTokenService service = context.getBean("access_token_service",AccessTokenService.class);
-//		String token = service.getAccessToken();	
-//		System.out.println("token: " + token);
-		
-		//u-coupon
-		String token = service.getAccessTokenDir();
+		String token = service.getAccessToken();
 		/*
 		 * jssdk验证
 		 */
