@@ -45,15 +45,18 @@ public class GetDistance {
 	
 	public JSON calDistance(String _city, String _lng, String _lat){
 		
+		String city = _city;
+		double lng = Double.parseDouble(_lng);
+		double lat = Double.parseDouble(_lat);
+		
 		//如果定位城市无油站，包装一个null
 		Map<String, String> station_null = new HashMap<>();
+		station_null.put("city", city);
 		station_null.put("station_list", "null");
 		JSON statioin_list_json = JSONObject.fromObject(station_null);
 		
 		List<Map<String, String>> station_list = new LinkedList<>();
-		String city = _city;
-		double lng = Double.parseDouble(_lng);
-		double lat = Double.parseDouble(_lat);
+
 //		String url = "http://app1.u-coupon.cn:8000/weixin/get_station_list.php?city=city_name";
 		String url = "http://115.29.51.206/Weixin/station/station_list.do?city=city_name";
 		url = url.replace("city_name", city);

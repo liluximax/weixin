@@ -124,9 +124,11 @@ response.setContentType("text/html;charset=utf-8");
 						if(cityName == "null"){
 					        var url = "/Weixin/station/calculate.do";
 					        $.getJSON(url, {"lng":lng, "lat":lat}, function(data){
+					        	
+					        	cityName = data.city;
+			    	        	$(".cityName").text(cityName);
+			    	        	
 					        	if(data.station_list != null){
-				    	        	cityName = data.city;
-				    	        	$(".cityName").text(cityName);
 					        		$.each(data.station_list,function(index,item){
 				    	        		$(".list").append("<ul class='single'>");
 				    	        		/*
