@@ -1,64 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8, maximum-scale=1.5, user-scalable=no" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=0.8, maximum-scale=1.5, user-scalable=no" />
 <title>列表</title>
 <script type="text/javascript" src="../jquery-2.2.1.min.js"></script>
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=raLVAEr8zl02CFnroyu3C7Bc"></script>
+<script type="text/javascript"
+	src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript"
+	src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=2.0&ak=raLVAEr8zl02CFnroyu3C7Bc"></script>
 <style type="text/css">
-body{font-size: 90%}
-.list{font-size: 100%}
-li{list-style-type: none}
-.adress{font-weight: bold}
-.distance{color: red}
-.cityName{font-weight: bold;
-		  color: black;}
-.tel{font-weight: bold}
-.name{border-style: none;
-	  background-color: white;
-	  font-size: 105%;
-	  color: #6FAA18;
-	  outline: none;
-	  /*下面这条清楚safri的默认input效果*/
- 	  -webkit-appearance: none;
-	  font-weight: bold;
- 	  padding-left: 0px;
-      padding-right: 0px;
-      }
-.map{border-style: none;
-    background-color: white;
-    font-size: 112%;
-    color: blueviolet;
-    outline: none;
-    font-weight: bold;
-    -webkit-appearance: none;
-    }
-.map_locate{
-    float: right;
+body {
+	font-size: 90%
 }
-hr{
-    background-color: #dddddd;
-    height: 0.8px;
-    border: none;
+
+.list {
+	font-size: 100%
 }
-a{
+
+li {
+	list-style-type: none
+}
+
+.adress {
+	font-weight: bold
+}
+
+.distance {
+	color: red
+}
+
+.cityName {
+	font-weight: bold;
+	color: black;
+}
+
+.tel {
+	font-weight: bold
+}
+
+.name {
+	border-style: none;
+	background-color: white;
+	font-size: 105%;
+	color: #6FAA18;
+	outline: none;
+	/*下面这条清楚safri的默认input效果*/
+	-webkit-appearance: none;
+	font-weight: bold;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.map {
+	border-style: none;
+	background-color: white;
+	font-size: 112%;
+	color: blueviolet;
+	outline: none;
+	font-weight: bold;
+	-webkit-appearance: none;
+}
+
+.map_locate {
+	float: right;
+}
+
+a {
 	text-decoration: none;
-}	
+}
+
+.single {
+	border-bottom: 1px solid #dddddd;
+	padding: 0 0 1px 0;
+}
 </style>
 </head>
 <body>
+	<!-- 	<div style="border-bottom: 1px solid #dddddd; padding: 0 0 20px 0;"> -->
 	<div>
-	    <form action="map.jsp">
-	        <span class="city">当前城市:<span class="cityName"></span></span>
-	        <a href="citylist.jsp">切换城市</a>
-	        <span><img class="headimg" style="height: 8%; width: 8%; float: right" src=""></span>
-	    </form>
+		<form action="map.jsp">
+			<span class="city">当前城市:<span class="cityName"></span></span> <a
+				href="citylist.jsp">切换城市</a> <span><img class="headimg"
+				style="height: 8%; width: 8%; float: right"></span>
+		</form>
 	</div>
-	<hr>
 	<div class="list"></div>
 </body>
 
@@ -152,14 +182,14 @@ response.setContentType("text/html;charset=utf-8");
 				    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
 				    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
 				    	                    +"<input id='address' name='address' type='hidden' value="+address+">"
-				    	                    +"<input class='name' type='submit' align='center' value="+name+">"
+				    	                    +"<input class='name' type='submit' align='center' style='margin-left: 0px' value="+name+">"
 				    	                    +"</form>");
 				    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */
 				    	        		var adress_content = $("<li><span class='adress'>地址:</span>"+address+"</li>");
 				    	        		var tel = $("<li class='tel'>联系电话:</li>");
 				    	        		var distance_content = $("<li class='adress'>距您约<span class='distance'>"+distance+"</span>公里</li>");
 				    	        		
-				    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul><hr>");
+				    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul>");
 				    	        	})
 					        	}
 					        	else{
@@ -199,14 +229,14 @@ response.setContentType("text/html;charset=utf-8");
 				    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
 				    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
 				    	                    +"<input id='address' name='address' type='hidden' value="+address+">"
-				    	                    +"<input class='name' type='submit' align='center' value="+name+">"
+				    	                    +"<input class='name' type='submit' align='center' style='margin-left: 0px' value="+name+">"
 				    	                    +"</form>");
 				    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */
 				    	        		var adress_content = $("<li><span class='adress'>地址:</span>"+address+"</li>");
 				    	        		var tel = $("<li class='tel'>联系电话:</li>");
 				    	        		var distance_content = $("<li class='adress'>距您约<span class='distance'>"+distance+"</span>公里</li>");
 				    	        		
-				    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul><hr>");
+				    	        		$(".list").append(name_content).append(adress_content).append(distance_content).append("</ul>");
 				    	        	})
 					        	}
 					        	else{
