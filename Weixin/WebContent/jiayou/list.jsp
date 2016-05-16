@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8, maximum-scale=1.5, user-scalable=no" />
-<title>油站列表</title>
+<title>列表</title>
 <script type="text/javascript" src="../jquery-2.2.1.min.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -118,11 +118,12 @@ response.setContentType("text/html;charset=utf-8");
 			              /* map.setCenter(data.points[0]); */
 			            
 			  			var cityName = '<%=request.getParameter("cityName") %>';
+			  			var cityId = '<%=request.getParameter("cityId") %>';
 						var lat = data.points[0].lat;
 						var lng = data.points[0].lng;
 						
 						if(cityName == "null"){
-					        var url = "/Weixin/station/calculate.do";
+					        var url = "/Weixin/station/list.do";
 					        $.getJSON(url, {"lng":lng, "lat":lat}, function(data){
 					        	
 					        	cityName = data.city;
@@ -134,10 +135,10 @@ response.setContentType("text/html;charset=utf-8");
 				    	        		/*
 				    	        		!!!接口中经纬度标反了!!!
 				    	        		*/
-				    	        		var lng = item.latitude;
-				    	        		var lat = item.longitude;
+				    	        		var lat = item.latitude;
+				    	        		var lng = item.longitude;
 				    	        		var id = item.station_id;
-				    	        		var name = item.name;
+				    	        		var name = item.station_name;
 				    	        		var address = item.address;
 				    	        		var distance = item.distance;
 				    	        		
@@ -150,7 +151,7 @@ response.setContentType("text/html;charset=utf-8");
 				    	                    +"<input id='lat' name='lat' type='hidden' value="+lng+">"
 				    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
 				    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
-				    	                    +"<input id='adress' name='adress' type='hidden' value="+address+">"
+				    	                    +"<input id='address' name='address' type='hidden' value="+address+">"
 				    	                    +"<input class='name' type='submit' align='center' value="+name+">"
 				    	                    +"</form>");
 				    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */
@@ -170,21 +171,21 @@ response.setContentType("text/html;charset=utf-8");
 						}
 						else{
 							
-					        var url = "/Weixin/station/calculate.do";
+					        var url = "/Weixin/station/list.do";
 					        $(".cityName").text(cityName);
 					        //在传参数前一定要对城市名，进行utf-8转码。
 					        //下面的方法，在后台仍然打印不出中文，但是功能不影响
-					        $.getJSON(url, {city:encodeURI(cityName,"utf-8"),"lng":lng, "lat":lat}, function(data){
+					        $.getJSON(url, {"cityId":cityId, "lng":lng, "lat":lat}, function(data){
 					        	if(data.station_list != null){
 					        		$.each(data.station_list,function(index,item){
 				    	        		$(".list").append("<ul class='single'>");
 				    	        		/*
 				    	        		!!!接口中经纬度标反了!!!
 				    	        		*/
-				    	        		var lng = item.latitude;
-				    	        		var lat = item.longitude;
+				    	        		var lat = item.latitude;
+				    	        		var lng = item.longitude;
 				    	        		var id = item.station_id;
-				    	        		var name = item.name;
+				    	        		var name = item.station_name;
 				    	        		var address = item.address;
 				    	        		var distance = item.distance;
 				    	        		
@@ -197,7 +198,7 @@ response.setContentType("text/html;charset=utf-8");
 				    	                    +"<input id='lat' name='lat' type='hidden' value="+lng+">"
 				    	                    +"<input id='id' name='id' type='hidden' value="+id+">"
 				    	                    +"<input id='name' name='name' type='hidden' value="+name+">"
-				    	                    +"<input id='adress' name='adress' type='hidden' value="+address+">"
+				    	                    +"<input id='address' name='address' type='hidden' value="+address+">"
 				    	                    +"<input class='name' type='submit' align='center' value="+name+">"
 				    	                    +"</form>");
 				    	                /* var name_content = "<a id='dolist' href='dolist.jsp'>"+name+"</a>"; */

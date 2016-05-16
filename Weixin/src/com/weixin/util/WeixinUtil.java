@@ -365,16 +365,27 @@ public class WeixinUtil {
 		button1.setType("click");
 		button1.setSub_button(new Button[]{button11, button12});
 		
-		ClikButton button2 = new ClikButton();
+		ViewButton button21 = new ViewButton();
+		button21.setName("公司简介");
+		button21.setType("view");
+		url = "http://www.u-coupon.cn/mobile/jianjie.html";
+		button21.setUrl(url);
+		
+		ViewButton button22 = new ViewButton();
+		button22.setName("使用帮助");
+		button22.setType("view");
+		url = "http://www.u-coupon.cn/mobile/help.html";
+		button22.setUrl(url);
+		
+		Button button2 = new Button();
 		button2.setName("业务介绍");
 		button2.setType("click");
-		button2.setKey("2");
+		button2.setSub_button(new Button[]{button21, button22});
 		
-		ClikButton button3 = new ClikButton();
+		ViewButton button3 = new ViewButton();
 		button3.setName("获取App");
-		button3.setType("click");
-		button3.setKey("3");
-		
+		button3.setType("view");
+		button3.setUrl("http://www.u-coupon.cn/mobile/download.html");
 		menu.setButton(new Button[]{button1, button2, button3});
 		
 		return menu;

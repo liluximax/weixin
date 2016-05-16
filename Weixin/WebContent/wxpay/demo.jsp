@@ -4,21 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="jquery-2.2.1.min.js"></script>
+<script type="text/javascript" src="../jquery-2.2.1.min.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<title>Insert title here</title>
+<title>paytest</title>
 </head>
-<body>
-	已经获取网页授权
-	<p>code: <%=request.getParameter("code") %></p>
-	<div>
-		<span class="user"></span>
-		<input id="btn" type="button" value="测试">
-		<img id="img" src="">
-	</div>
-	
-	<script type="text/javascript">
+<script type="text/javascript">
 
 		$.getJSON("/Weixin/userinfo/jssdk.do",{url:location.href.split('#')[0]}, function(data){
 			
@@ -61,17 +51,7 @@
 			});
 		});
 	</script>
-		
-	<script type="text/javascript">
-		var code = '<%=request.getParameter("code") %>';
-		var state = '<%=request.getParameter("state") %>';
-		var url = "/Weixin/userinfo/getuserinfo.do";
-		$.getJSON(url,{"code":code, "state":state},function(data){
-			var nickname = data.nickname;
-			var headimgurl = data.headimgurl;
-			var openid = data.openid;
-			$(".user").append(nickname+","+headimgurl);
-		});
-	</script>
+<body>
+	paytest
 </body>
 </html>

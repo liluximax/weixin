@@ -43,9 +43,10 @@ public class GetDistance {
         return dou;
     }
 	
-	public JSON calDistance(String _city, String _lng, String _lat){
+	public JSON calDistance(String _city,String _cityId, String _lng, String _lat){
 		
 		String city = _city;
+		String cityId = _cityId;
 		double lng = Double.parseDouble(_lng);
 		double lat = Double.parseDouble(_lat);
 		
@@ -58,8 +59,9 @@ public class GetDistance {
 		List<Map<String, String>> station_list = new LinkedList<>();
 
 //		String url = "http://app1.u-coupon.cn:8000/weixin/get_station_list.php?city=city_name";
-		String url = "http://115.29.51.206/Weixin/station/station_list.do?city=city_name";
-		url = url.replace("city_name", city);
+//		String url = "http://115.29.51.206/Weixin/station/station_list.do?city=city_name";
+		String url = "http://app1.u-coupon.cn:8000/weixin/get_station_list.php?city_id=cityId";
+		url = url.replace("cityId", cityId);
 		JSON data = WeixinUtil.doGetStr(url);
 		String data_string = data.toString();
 		if(data_string != "null"){
@@ -69,13 +71,13 @@ public class GetDistance {
 				Map<String, String> single = new LinkedHashMap<>();
 				JSONObject row = listArray.getJSONObject(i);
 				String id = row.getString("station_id");
-				String name = row.getString("name");
+				String name = row.getString("station_name");
 				String station_lat = row.getString("latitude");
 				String station_lng = row.getString("longitude");
 				String address =  row.getString("address");
 				
-				double station_lng_double = Double.parseDouble(station_lat);
-				double station_lat_double = Double.parseDouble(station_lng);
+				double station_lng_double = Double.parseDouble(station_lng);
+				double station_lat_double = Double.parseDouble(station_lat);
 				
 				double[] station_loc_baidu = CoordinateTrans.wgs2bd(station_lat_double, station_lng_double);
 				
@@ -86,7 +88,7 @@ public class GetDistance {
 				distance = changeDouble(distance/1000);
 				
 				single.put("station_id", id);
-				single.put("name", name);
+				single.put("station_name", name);
 				single.put("longitude", station_lng);
 				single.put("latitude", station_lat);
 				single.put("address", address);
@@ -95,7 +97,7 @@ public class GetDistance {
 				station_list.add(single);
 				
 			}
-			Map station_list_map = new HashMap<>();
+			Map<Object, Object> station_list_map = new HashMap<>();
 			List<Map<String, String>> station_list_sorted = sortByDistance(station_list);
 			station_list_map.put("station_list", station_list_sorted);
 			station_list_map.put("city",city);
@@ -125,5 +127,40 @@ public class GetDistance {
 			data.add(j+1, temp);
 		}
 		return data;
+	}
+	
+	public String getCityIdByName(String city){
+		String cityId = "0000";
+		Map<String, String> cityResult = new LinkedHashMap<>();
+		String city_url = "http://app1.u-coupon.cn:8000/weixin/get_city_list.php";
+		JSON cityData = WeixinUtil.doGetStr(city_url);
+		JSONArray cityList = JSONObject.fromObject(cityData).getJSONArray("city_list");
+		for (int i = 0; i < cityList.size(); i++) {
+			JSONObject row = cityList.getJSONObject(i);
+			cityResult.put(row.getString("city_id"), row.getString("cityname"));
+		}
+		for(Map.Entry<String, String> entry : cityResult.entrySet()){
+			if(city.equals(entry.getValue())){
+				cityId = entry.getKey();
+			}
+		}
+		return cityId;
+	}
+	
+	public String getCityNameById(String cityId){
+		Map<String, String> cityResult = new LinkedHashMap<>();
+		String city_url = "http://app1.u-coupon.cn:8000/weixin/get_city_list.php";
+		JSON cityData = WeixinUtil.doGetStr(city_url);
+		JSONArray cityList = JSONObject.fromObject(cityData).getJSONArray("city_list");
+		for (int i = 0; i < cityList.size(); i++) {
+			JSONObject row = cityList.getJSONObject(i);
+			cityResult.put(row.getString("city_id"), row.getString("cityname"));
+		}
+		for(Map.Entry<String, String> entry : cityResult.entrySet()){
+			if(cityId.equals(entry.getKey())){
+				return entry.getValue();
+			}
+		}
+		return null;
 	}
 }

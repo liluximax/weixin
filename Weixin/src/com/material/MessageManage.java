@@ -18,8 +18,9 @@ public class MessageManage {
 	
 	public String UcouponSub(){
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("###欢迎关注###\n\n");
-		buffer.append("欢迎语");
+//		buffer.append("###欢迎关注###\n\n");
+//		buffer.append("欢迎语");
+		buffer.append("优加油--移动互联网加油利器");
 		return buffer.toString();
 	}
 	

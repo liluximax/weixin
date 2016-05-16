@@ -247,22 +247,28 @@
 </div>
 
 </body>
+<%
+request.setCharacterEncoding("utf-8");
+response.setContentType("text/html;charset=utf-8");
+%>
 <script type="text/javascript">
 	var url = "/Weixin/station/city.do";
 	$.getJSON(url,function(data){
 		$.each(data.city_list,function(index,item){
-			var city = item.city;
+			var city = item.cityname;
+			var cityId = item.city_id;
 			var content = $("<li><div><form action='list.jsp' method='post'>"
 							+"<input name='cityName' type='hidden' value="+city+">"
+							+"<input name='cityId' type='hidden' value="+cityId+">"
 							+"<input class='name' type='submit' value="+city+">"
 							+"</form></div></li>");
 			$(".nav-list").append(content);
 		})
 	});
-	var test_content = $("<li><div><form action='list.jsp' method='post'>"
+/* 	var test_content = $("<li><div><form action='list.jsp' method='post'>"
 			+"<input name='cityName' type='hidden' value='上海市'>"
 			+"<input class='name' type='submit' value='上海市'>"
 			+"</form></div></li>");
-	$(".nav-list").append(test_content);
+	$(".nav-list").append(test_content); */
 </script>
 </html>

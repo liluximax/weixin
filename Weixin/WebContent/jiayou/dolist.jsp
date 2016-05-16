@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=raLVAEr8zl02CFnroyu3C7Bc"></script>
 	<script type="text/javascript" src="../jquery-2.2.1.min.js"></script>
-	<title>点击油站地理位置</title>
+	<title>油站地理位置</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
  	var lat = '<%=request.getParameter("lat") %>';
  	var lng = '<%=request.getParameter("lng") %>';
  	var name = '<%=request.getParameter("name") %>';
- 	var adress = '<%=request.getParameter("adress") %>';
+ 	var address = '<%=request.getParameter("address") %>';
  	var id = '<%=request.getParameter("id") %>';
 	var point = new BMap.Point(lat, lng);
     map.centerAndZoom(point, 15);
@@ -124,7 +124,7 @@ $.getJSON("/Weixin/userinfo/jssdk.do",{url:location.href.split('#')[0]}, functio
 		
 	});
 	
-    var myIcon = new BMap.Icon("/Weixin/image/jiayouzhan.png",new BMap.Size(30,30));
+    var myIcon = new BMap.Icon("/Weixin/image/ucoupon2.jpg",new BMap.Size(30,30));
     translateCallback = function (data){
         if(data.status === 0) {
         	
@@ -134,26 +134,36 @@ $.getJSON("/Weixin/userinfo/jssdk.do",{url:location.href.split('#')[0]}, functio
             var lat = point.lat;
 
             var form = 
-            "<form action='domap.jsp' method='post'>"
-            +"<input id='lng' name='lng' type='hidden'>"
-            +"<input id='lat' name='lat' type='hidden'>"
-            +"<input id='id' name='id' type='hidden'>"
-            +"<input id='name' name='name' type='hidden'>"
-            +"<input id='adress' name='adress' type='hidden'>"
-            +"</form>";
+                "<form action='domap.jsp' method='post'>"
+                +"<input id='lng' name='lng' type='hidden'>"
+                +"<input id='lat' name='lat' type='hidden'>"
+                +"<input id='id' name='id' type='hidden'>"
+                +"<input id='name' name='name' type='hidden'>"
+                +"<input id='address' name='address' type='hidden'>"
+                +"</form>";
+                
+                var sContent = "<div><span style='font-weight: bold'>地址:</span><span id='info'></span></div>"+form;
+            	
+                var opts = {
+            			  width : 200,     // 信息窗口宽度
+            			  height: 80,     // 信息窗口高度
+            			  title : name , // 信息窗口标题
+            			}
+            	
+                var infoWindow = new BMap.InfoWindow(sContent, opts);
+                
+            	marker.addEventListener("click", function () {
+                    map.openInfoWindow(infoWindow,data.points[0]);
+                    
+                    document.getElementById("info").innerHTML = address;
+                    document.getElementById("lng").value = lng.toFixed(3);
+                    document.getElementById("lat").value = lat.toFixed(3);
+                    document.getElementById("id").value = id;
+                    document.getElementById("name").value = name;
+                    document.getElementById("address").value = address;
+                });
+                map.addOverlay(marker);
             
-            var sContent = "<div id='info'></div>"+form;
-            var infoWindow = new BMap.InfoWindow(sContent);
-            marker.addEventListener("click", function () {
-                map.openInfoWindow(infoWindow,data.points[0]);
-                document.getElementById("info").innerHTML = name;
-                document.getElementById("lng").value = lng.toFixed(3);
-                document.getElementById("lat").value = lat.toFixed(3);
-                document.getElementById("id").value = id;
-                document.getElementById("name").value = name;
-                document.getElementById("adress").value = adress;
-            });
-            map.addOverlay(marker);
             map.panTo(data.points[0]);
         }
     }

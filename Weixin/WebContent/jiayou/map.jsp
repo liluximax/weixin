@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>油站地理位置</title>
+    <title>地图</title>
     <style type="text/css">
         html{height:100%}
         body{height:100%;margin:0px;padding:0px}
@@ -105,17 +105,17 @@
 			        pointArr.push(location);
 			        convertor.translate(pointArr, 1, 5, translateCallback)
 			      	
-			        var url = "/Weixin/station/changeJson.do";
+			        var url = "/Weixin/station/map.do";
 			        $.getJSON(url, {"lng":longitude, "lat":latitude}, function(data){
    			        	$.each(data.station_list,function(index,item){
    			        		var lat = item.latitude;
    			        		var lng = item.longitude;
    			        		var id = item.station_id;
-   			        		var name = item.name;
-   			        		var adress = item.address;
+   			        		var name = item.station_name;
+   			        		var address = item.address;
    			        		
-   			        		var point_target = new BMap.Point(lat, lng);
-   			        		addMarker(point_target, id, name, adress);
+   			        		var point_target = new BMap.Point(lng, lat);
+   			        		addMarker(point_target, id, name, address);
    			        	})
 			        })
 			        
@@ -208,9 +208,9 @@
 
 <script id="demo">
 
-    function addMarker(point, id, name, adress){  // 创建图标对象
+    function addMarker(point, id, name, address){  // 创建图标对象
 
-        var myIcon = new BMap.Icon("/Weixin/image/jiayouzhan.png",new BMap.Size(30,30));
+        var myIcon = new BMap.Icon("/Weixin/image/ucoupon2.jpg",new BMap.Size(30,30));
 		
     	//下面的回调函数是对坐标进行修正
         translateCallback = function (data){
@@ -227,19 +227,28 @@
                 +"<input id='lat' name='lat' type='hidden'>"
                 +"<input id='id' name='id' type='hidden'>"
                 +"<input id='name' name='name' type='hidden'>"
-                +"<input id='adress' name='adress' type='hidden'>"
+                +"<input id='address' name='address' type='hidden'>"
                 +"</form>";
                 
-                var sContent = "<div id='info'></div>"+form;
-                var infoWindow = new BMap.InfoWindow(sContent);
-                marker.addEventListener("click", function () {
+                var sContent = "<div><span style='font-weight: bold'>地址:</span><span id='info'></span></div>"+form;
+            	
+                var opts = {
+            			  width : 200,     // 信息窗口宽度
+            			  height: 80,     // 信息窗口高度
+            			  title : name , // 信息窗口标题
+            			}
+            	
+                var infoWindow = new BMap.InfoWindow(sContent, opts);
+                
+            	marker.addEventListener("click", function () {
                     map.openInfoWindow(infoWindow,data.points[0]);
-                    document.getElementById("info").innerHTML = name;
+                    
+                    document.getElementById("info").innerHTML = address;
                     document.getElementById("lng").value = lng.toFixed(3);
                     document.getElementById("lat").value = lat.toFixed(3);
                     document.getElementById("id").value = id;
                     document.getElementById("name").value = name;
-                    document.getElementById("adress").value = adress;
+                    document.getElementById("address").value = address;
                 });
                 map.addOverlay(marker);
             }
