@@ -2,6 +2,8 @@ package com.spring.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,8 +11,6 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import com.weixin.model.token.AccessToken;
 import com.weixin.model.token.JsApiTicket;
 
 @Repository
@@ -21,6 +21,8 @@ public class JsapiTicketDao {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
+	SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 	
 	public JsApiTicket getJsApiTicket(){
 		
@@ -75,10 +77,12 @@ public class JsapiTicketDao {
 	public void insertJsApiTicket_u(String ticket){
 		long create_time = System.currentTimeMillis()/1000;
 		long expire_time = create_time + 3600;
-		String sql = " insert into jsapi_ticket_u (ticket,create_time,expire_time) values(:t,:c,:e)";
+		String login_time = date.format(new Date());
+		String sql = " insert into jsapi_ticket_u (ticket,create_time,expire_time,login_time) values(:t,:c,:e,:l)";
 		MapSqlParameterSource source = new MapSqlParameterSource().addValue("t", ticket)
 																   .addValue("c", create_time)
-																   .addValue("e", expire_time);
+																   .addValue("e", expire_time)
+																   .addValue("l", login_time);
 		namedParameterJdbcTemplate.update(sql, source);
 	}
 }
