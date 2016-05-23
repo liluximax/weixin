@@ -147,12 +147,12 @@ response.setContentType("text/html;charset=utf-8");
 			            if(data.status === 0) {
 			              /* map.setCenter(data.points[0]); */
 			            
-			  			var cityName = '<%=request.getParameter("cityName") %>';
+<%-- 			  		var cityName = '<%=request.getParameter("cityName") %>'; --%>
 			  			var cityId = '<%=request.getParameter("cityId") %>';
 						var lat = data.points[0].lat;
 						var lng = data.points[0].lng;
 						
-						if(cityName == "null"){
+						if(cityId == "null"){
 					        var url = "/Weixin/station/list.do";
 					        $.getJSON(url, {"lng":lng, "lat":lat}, function(data){
 					        	
@@ -202,10 +202,14 @@ response.setContentType("text/html;charset=utf-8");
 						else{
 							
 					        var url = "/Weixin/station/list.do";
-					        $(".cityName").text(cityName);
+/* 					        $(".cityName").text(cityName);*/
 					        //在传参数前一定要对城市名，进行utf-8转码。
 					        //下面的方法，在后台仍然打印不出中文，但是功能不影响
 					        $.getJSON(url, {"cityId":cityId, "lng":lng, "lat":lat}, function(data){
+					        	
+					        	cityName = data.city;
+			    	        	$(".cityName").text(cityName);
+					        	
 					        	if(data.station_list != null){
 					        		$.each(data.station_list,function(index,item){
 				    	        		$(".list").append("<ul class='single'>");
