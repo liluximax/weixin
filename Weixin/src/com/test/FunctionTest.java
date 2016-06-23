@@ -23,7 +23,6 @@ import com.spring.dao.StationListDao;
 import com.weixin.model.token.AccessToken;
 import com.weixin.util.WeixinUtil;
 
-import jdk.nashorn.api.scripting.JSObject;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -88,12 +87,12 @@ public class FunctionTest {
 		// List<Map<String, String>> result = GetDistance.sortByDistance(data);
 		// System.out.println(result.toString());
 
-		// ApplicationContext context = new
-		// ClassPathXmlApplicationContext("com/spring/config/bean.xml");
-		// StationListDao listDao =
-		// context.getBean("stationDao",StationListDao.class);
-		// List<Map<String, String>> result = listDao.getStationByCity("北京市");
-		// System.out.println(result.toString());
-		String city = "北京市";
+		 ApplicationContext context = new
+		 ClassPathXmlApplicationContext("com/spring/config/bean.xml");
+		 StationListDao listDao =
+		 context.getBean("stationDao",StationListDao.class);
+		 List<Map<String, String>> result = listDao.getStationByCity("北京市");
+		 System.out.println(result.toString());
+//		String city = "北京市";
 	}
 }

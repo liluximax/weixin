@@ -1,0 +1,36 @@
+body{font-size: 90%}
+.list{font-size: 100%}
+li{list-style-type: none}
+.adress{font-weight: bold}
+.distance{color: red}
+.cityName{font-weight: bold}
+.tel{font-weight: bold}
+.name{border-style: none;
+	  background-color: white;
+	  font-size: 105%;
+	  color: #6FAA18;
+	  outline: none;
+	  
+	  /*下面这条清楚safri的默认input效果*/
+ 	  -webkit-appearance: none;
+	  
+	  font-weight: bold;
+ 	  padding-left: 0px;
+      padding-right: 0px;
+      }
+.map{border-style: none;
+    background-color: white;
+    font-size: 112%;
+    color: blueviolet;
+    outline: none;
+    font-weight: bold;
+    -webkit-appearance: none;
+    }
+.map_locate{
+    float: right;
+}
+hr{
+    background-color: #dddddd;
+    height: 0.8px;
+    border: none;
+}

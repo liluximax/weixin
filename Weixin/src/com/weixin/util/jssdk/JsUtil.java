@@ -1,5 +1,6 @@
 package com.weixin.util.jssdk;
 
+import com.spring.service.cache.JsApiTicketCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.spring.service.AccessTokenService;
@@ -16,8 +17,11 @@ import java.io.UnsupportedEncodingException;
 @Service("jsutil")
 public class JsUtil {
 	
-	@Autowired
-	private JsApiTicketService jsApiTicketService;
+//	@Autowired
+//	private JsApiTicketService jsApiTicketService;
+
+    @Autowired
+    private JsApiTicketCache jsApiTicketCache;
 	
     public JsSignature sign(String url) {
     	
@@ -27,8 +31,11 @@ public class JsUtil {
         String timestamp = create_timestamp();
         String string1;
         String signature = "";
-        String jsapi_ticket = jsApiTicketService.getJsApiTicket();
-        
+//        String jsapi_ticket = jsApiTicketService.getJsApiTicket();
+
+        //换成下面使用缓存的方式
+        String jsapi_ticket = jsApiTicketCache.getJsApiTicketByCache();
+
         //注意这里参数名必须全部小写，且必须有序
         string1 = "jsapi_ticket=" + jsapi_ticket +
                   "&noncestr=" + nonce_str +

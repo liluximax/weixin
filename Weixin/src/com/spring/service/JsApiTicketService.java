@@ -7,7 +7,11 @@ import com.weixin.model.token.JsApiTicket;
 import com.weixin.util.DeveloperId;
 import com.weixin.util.WeixinUtil;
 import net.sf.json.JSONObject;
-
+/*
+此类已废弃
+使用内存进行缓存
+连接数据库的操作可供日后参考
+ */
 @Service
 public class JsApiTicketService {
 

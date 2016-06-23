@@ -1,0 +1,19 @@
+.st_title{
+    font-size: 16px;
+    font-weight: bold;
+    color: #6FAA18;
+    margin: 5px;
+}
+.st_meta {
+    font-weight: bold;
+    float: left;
+    padding-left: 5px;
+}
+
+.uk-comment-header {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    background: #fafafa;
+}

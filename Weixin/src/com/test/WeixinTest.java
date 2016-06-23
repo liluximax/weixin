@@ -5,6 +5,8 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
+import com.spring.service.cache.AccessTokenCache;
+import com.spring.service.cache.JsApiTicketCache;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -23,8 +25,9 @@ public class WeixinTest {
 		
 		//access_token
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/config/bean.xml");
-		AccessTokenService service = context.getBean("access_token_service",AccessTokenService.class);
-		String token = service.getAccessToken();
+		AccessTokenCache service = context.getBean("access_token_cache",AccessTokenCache.class);
+		String token = service.getAccessTokenByCache();
+		System.out.println(token);
 		/*
 		 * jssdk验证
 		 */
